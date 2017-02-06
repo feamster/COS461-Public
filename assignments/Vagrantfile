@@ -1,0 +1,44 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+
+Vagrant.configure(2) do |config|
+
+  # 64 bit Ubuntu Vagrant Box
+  config.vm.box = "ubuntu/trusty64"
+
+  ## Configure hostname and port forwarding
+  config.vm.hostname = "cos461"
+  config.vm.network "forwarded_port", guest: 8888, host: 8888
+  config.ssh.forward_x11 = true
+
+  ## Provisioning
+  config.vm.provision "shell", inline: <<-SHELL
+     sudo apt-get update
+     sudo apt-get -y upgrade
+     sudo apt-get install -y emacs
+     sudo apt-get install -y python-dev
+     curl https://bootstrap.pypa.io/get-pip.py > get-pip.py
+     sudo python get-pip.py
+     rm -f get-pip.py
+     sudo pip install jupyter
+     sudo apt-get install -y gccgo-go
+  SHELL
+
+  ## Notebook
+  config.vm.provision "shell", run: "always", inline: <<-SHELL
+    if ! wget -qO /dev/null "0.0.0.0:8888"; then jupyter notebook --notebook-dir=/vagrant --no-browser --ip=0.0.0.0 --port 8888 --NotebookApp.token='' & fi
+  SHELL
+
+  ## CPU & RAM
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
+    vb.memory = 2048
+    vb.cpus = 1
+  end
+
+end
