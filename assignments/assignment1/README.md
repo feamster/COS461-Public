@@ -136,6 +136,6 @@ Here are some debugging tips. If you are still having trouble, ask a question on
 * If you are getting other connection errors, try a different port between 10000 and 60000.
 
 ##### Submission and grading
-Submit the assignment by uploading your modified client and server files to CS DropBox.  We will post the submission link on the course website, Piazza, and Slack a few days before the assignment is due.
+Submit the assignment by uploading your modified client and server files to CS DropBox here: https://dropbox.cs.princeton.edu/COS461_S2017/Assignment_1_-_Socket_Programming.
 
 We will grade your assignments by running the `test_client_server.sh` script and additional tests with large messages, multiple simultaneous clients, etc. Double check the specifications above and perform your own tests before submitting.
