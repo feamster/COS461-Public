@@ -1,6 +1,7 @@
 # Assignment 3: TCP Congestion Control and Bufferbloat
 
-#### Due Monday, March 27 at 5:00pm
+#### Part A checkpoint due Friday, March 17 at 5:00pm
+#### Completed assignment due Monday, March 27 at 5:00pm
 
 You may work with a partner on this assignment.
 
@@ -37,7 +38,11 @@ Every cell in a notebook can contain either code or text. Begin editing a cell b
 The "Help" menu contains many additional resources about Jupyter notebooks (including a user interface tour, useful keyboard shortcuts, and links to tutorials).
 
 ### Submission
-Submit your completed `Assignment3_Notebook.ipynb` file on CS Dropbox here: https://dropbox.cs.princeton.edu/COS461_S2017/Assignment_3_-_TCP_Bufferbloat. Submit only once for both partners. Remember to put your names and netids in the marked location at the top of the file.
+Submit your Assignment3_Notebook.ipynb file with **at least** Part A implemented by 5:00pm on March 17th here: https://dropbox.cs.princeton.edu/COS461_S2017/Assignment_3_-_Checkpoint.
+
+Submit your Assignment3_Notebook.ipynb file with all parts completed by 5:00pm on March 27th here: https://dropbox.cs.princeton.edu/COS461_S2017/Assignment_3_-_TCP_Bufferbloat. 
+
+Submit only once for both partners. Remember to put your names and netids in the marked location at the top of the submitted file. 
 
 ### Acknowledgement
 This assignment is modeled after a [similar assignment](http://web.stanford.edu/class/cs244/pa1.html) at Stanford University.
