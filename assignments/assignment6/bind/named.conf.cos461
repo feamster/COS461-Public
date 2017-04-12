@@ -1,0 +1,26 @@
+;
+; dns zone for for cos461.net
+;
+$ORIGIN cos461.net.
+$TTL 1D
+; any time you make a change to the domain, bump the
+; "serial" setting below. the format is easy:
+; YYYYMMDDI, with the I being an iterator in case you
+; make more than one change during any one day
+@ 	IN	SOA	cos461.net. princeton.cos461.net. (
+			201603310	; serial
+			8H		; refresh
+			4H		; retry
+			4W		; expire
+			1D )		; minimum
+	NS	princeton	
+	MX	10 princeton 
+	TXT	"COS461 - Computer Networks at Princeton University"
+
+www	        IN  CNAME	princeton
+localhost	IN  A	127.0.0.1
+jrex		IN  A	10.0.0.1
+feamster	IN  A	10.0.0.2
+kylej		IN  A	10.0.0.3
+princeton	IN  A	10.0.0.4
+
