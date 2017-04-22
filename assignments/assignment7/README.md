@@ -2,7 +2,7 @@
 
 # Assignment 7: HTTP  Proxy
 
-#### Due May 16 at 5:00pm.  No late hours will be accepted for this assignment. 
+#### Due Tuesday May 16 at 5:00pm (Dean's Date).  No late hours will be accepted for this assignment. 
 
 In this assignment, you will implement a web proxy that passes requests and data between multiple web clients and web servers. The proxy should support **concurrent** connections. This assignment will give you a chance to get to know one of the most popular application protocols on the Internet -- the Hypertext Transfer Protocol (HTTP). When you're done with the assignment, you should be able to configure Firefox to use your  proxy implementation.
 
