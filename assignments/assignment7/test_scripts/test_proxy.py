@@ -36,7 +36,7 @@ except ImportError:
 # of the testing script.
 #
 pub_urls = ['http://example.com/', 'http://sns.cs.princeton.edu/',
-            'http://www.cs.princeton.edu/people/faculty',
+            'http://www.cs.princeton.edu/people/faculty/',
             'https://www.cs.princeton.edu/~feamster/',];
 
 # timeout_secs - Individual tests will be killed if they do not

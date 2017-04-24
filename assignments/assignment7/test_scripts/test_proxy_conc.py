@@ -203,7 +203,7 @@ class ThreadPoolThread (threading.Thread):
 # of the testing script.
 #
 pub_urls = ['http://example.com/', 'http://sns.cs.princeton.edu/',
-            'http://www.cs.princeton.edu/people/faculty',
+            'http://www.cs.princeton.edu/people/faculty/',
             'https://www.cs.princeton.edu/~feamster/',];
 #           'http://www.scs.stanford.edu/',];
 
