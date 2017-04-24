@@ -88,6 +88,12 @@ $ git pull
 $ vagrant reload --provision
 ```
 
+* SSH to the VM and export the GOPATH environment variable
+```bash
+$ vagrant ssh
+$ export GOPATH=/vagrant/assignment7
+```
+
 * You will find the following starter code files in the /vagrant/assignment7 directory in the VM:
 ```
 Makefile       http_proxy.go       http_proxy_DNS.go        test_scripts        README.md      src
