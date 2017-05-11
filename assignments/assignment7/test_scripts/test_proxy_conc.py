@@ -235,7 +235,7 @@ def main():
      while (c < tries):
           c += 1
           print 'Binary: %s' % (proxy_bin);
-          print 'Running on port %s' % port;
+          print 'Running on port %s\n' % port;
 
           # Start the proxy running in the background
           cid = os.spawnl (os.P_NOWAIT, proxy_bin, proxy_bin, port);
@@ -476,30 +476,53 @@ def compare_url(argtuple):
      # Retrieve directly
      direct_data = get_direct(host, hostport, urldata[2])
 
-     passed = True
-     for (proxy, direct) in zip(proxy_data, direct_data):
-          if proxy != direct and not (proxy.startswith('Date') and direct.startswith('Date')) \
-                  and not (proxy.startswith('Expires') and direct.startswith('Expires')) \
-                  and not (proxy.startswith('Cache-Control') and direct.startswith('Cache-Control')):
-               print 'compare_url failed on %s' % url
-               print 'Proxy:  %s' % proxy
-               print 'Direct: %s' % direct
-               passed = False
-               break;
+     # Compare responses
+     return compare_responses(proxy_data, direct_data)
 
-     return passed
+
+def compare_responses(proxy_data, direct_data, lenient_header=True):
+     proxy_header = proxy_data.split("\r\n\r\n")[0]
+     direct_header = direct_data.split("\r\n\r\n")[0]
+     proxy_response_line = proxy_data.split("\r\n")[0]
+     direct_response_line = direct_data.split("\r\n")[0]
+
+     if "200" in proxy_response_line:
+          proxy_body = proxy_data.split("\r\n\r\n")[1]
+     else:
+          proxy_body = ""
+     if "200" in direct_response_line:
+          direct_body = proxy_data.split("\r\n\r\n")[1]
+     else:
+          direct_body = ""
+
+     if proxy_response_line != direct_response_line:
+          print "Response lines don't match:\n\nDirect: {}\nProxy:  {}\n".format(direct_response_line, proxy_response_line)
+          return False
+     if not lenient_header:
+         for proxy_h in proxy_header:
+             if not proxy_h.startswith("Date") and not proxy_h.startswith("Expires") and not (proxy_h in direct_header):
+                 print "Headers don't match:\n\nDirect:\n{}\n\nProxy:\n{}\n".format(direct_header, proxy_header)
+                 return False
+         for direct_h in direct_header:
+             if not direct_h.startswith("Date") and not direct_h.startswith("Expires") and not (direct_h in proxy_header):
+                 print "Headers don't match:\n\nDirect:\n{}\n\nProxy:\n{}\n".format(direct_header, proxy_header)
+                 return False
+     if proxy_body != direct_body:
+          print "HTML content doesn't match:\n\nDirect:\n{}\n\nProxy:\n{}\n".format(direct_body, proxy_body)
+          return False
+     return True
 
 def get_direct(host, port, url):
      '''Retrieve a URL using direct HTTP/1.1 GET.'''
      getstring = 'GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n'
      data = http_exchange(host, port,  getstring % (url, host))
-     return data.split('\n')
+     return data
 
 def get_data(host, port, url):
      '''Retrieve a URL using proxy HTTP/1.1 GET.'''
      getstring = 'GET %s HTTP/1.1\r\nConnection: close\r\n\r\n'
      data = http_exchange(host, port,  getstring % url)
-     return data.split('\n')
+     return data
 
 
 _connected = [];
@@ -536,7 +559,7 @@ def do_http_read (argtuple):
 
     conn, url = argtuple;
     try:
-        proxy_data = conn.read_all().split ('\n');
+        proxy_data = conn.read_all()
         conn.close ();
 
         urldata = urlparse.urlparse (url)
@@ -549,16 +572,7 @@ def do_http_read (argtuple):
         # Retrieve directly
         direct_data = get_direct (host, hostport, urldata[2])
 
-        passed = True
-        for (proxy, direct) in zip(proxy_data, direct_data):
-          if proxy != direct and not (proxy.startswith('Date') and direct.startswith('Date')) \
-                  and not (proxy.startswith('Expires') and direct.startswith('Expires')) \
-                  and not (proxy.startswith('Cache-Control') and direct.startswith('Cache-Control')):
-                print 'do_http_read failed on %s' % url
-                print 'Proxy:  %s' % proxy
-                print 'Direct: %s' % direct
-                passed = False
-                break;
+        passed = compare_responses(proxy_data, direct_data)
 
         if passed:
             _success += 1;

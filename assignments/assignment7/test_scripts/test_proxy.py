@@ -35,9 +35,11 @@ except ImportError:
 # produce unexpected results, including the abnormal termination
 # of the testing script.
 #
-pub_urls = ['http://example.com/', 'http://sns.cs.princeton.edu/',
+pub_urls = ['http://example.com/', 
+            'http://sns.cs.princeton.edu/',
             'http://www.cs.princeton.edu/people/faculty/',
-            'https://www.cs.princeton.edu/~feamster/',];
+            'https://www.cs.princeton.edu/~feamster/',
+]
 
 # timeout_secs - Individual tests will be killed if they do not
 # complete within this span of time.
@@ -56,7 +58,7 @@ def main():
           port = str(random.randint(1025, 49151))
 
      print 'Binary: %s' % proxy_bin
-     print 'Running on port %s' % port
+     print 'Running on port %s\n' % port
 
      # Start the proxy running in the background
      cid = os.spawnl(os.P_NOWAIT, proxy_bin, proxy_bin, port)
@@ -146,26 +148,54 @@ def compare_url(argtuple):
      # Retrieve directly
      direct_data = get_direct(host, hostport, urldata[2])
 
-     passed = True
-     for (proxy, direct) in zip(proxy_data, direct_data):
-          if proxy != direct and not (proxy.startswith('Date') and direct.startswith('Date')) and not (proxy.startswith('Expires') and direct.startswith('Expires')):
-               print 'Proxy: %s' % proxy
-               print 'Direct: %s'  % direct
-               passed = False
+     # Compare responses
+     return compare_responses(proxy_data, direct_data)
 
-     return passed
+
+def compare_responses(proxy_data, direct_data, lenient_header=True):
+     proxy_header = proxy_data.split("\r\n\r\n")[0]
+     direct_header = direct_data.split("\r\n\r\n")[0]
+     proxy_response_line = proxy_data.split("\r\n")[0]
+     direct_response_line = direct_data.split("\r\n")[0]
+     
+     if "200" in proxy_response_line:
+          proxy_body = proxy_data.split("\r\n\r\n")[1]
+     else:
+          proxy_body = ""
+     if "200" in direct_response_line:
+          direct_body = proxy_data.split("\r\n\r\n")[1]
+     else:
+          direct_body = ""
+
+     if proxy_response_line != direct_response_line:
+          print "Response lines don't match:\n\nDirect: {}\nProxy:  {}\n".format(direct_response_line, proxy_response_line)
+          return False
+     if not lenient_header:
+          for proxy_h in proxy_header:
+               if not proxy_h.startswith("Date") and not proxy_h.startswith("Expires") and not (proxy_h in direct_header):
+                    print "Headers don't match:\n\nDirect:\n{}\n\nProxy:\n{}\n".format(direct_header, proxy_header)
+                    return False
+          for direct_h in direct_header:
+               if not direct_h.startswith("Date") and not direct_h.startswith("Expires") and not (direct_h in proxy_header):
+                    print "Headers don't match:\n\nDirect:\n{}\n\nProxy:\n{}\n".format(direct_header, proxy_header)
+                    return False
+     if proxy_body != direct_body:
+          print "HTML content doesn't match:\n\nDirect:\n{}\n\nProxy:\n{}\n".format(direct_body, proxy_body)
+          return False
+     return True
 
 def get_direct(host, port, url):
      '''Retrieve a URL using direct HTTP/1.1 GET.'''
      getstring = 'GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n'
      data = http_exchange(host, port,  getstring % (url, host))
-     return data.split('\n')
+     return data
 
 def get_data(host, port, url):
      '''Retrieve a URL using proxy HTTP/1.1 GET.'''
      getstring = 'GET %s HTTP/1.1\r\nConnection: close\r\n\r\n'
      data = http_exchange(host, port,  getstring % url)
-     return data.split('\n')
+     #return data.split('\n')
+     return data
 
 def http_exchange(host, port, data):
      conn = telnetlib.Telnet()
