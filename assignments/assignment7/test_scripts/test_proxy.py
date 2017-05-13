@@ -163,7 +163,7 @@ def compare_responses(proxy_data, direct_data, lenient_header=True):
      else:
           proxy_body = ""
      if "200" in direct_response_line:
-          direct_body = proxy_data.split("\r\n\r\n")[1]
+          direct_body = direct_data.split("\r\n\r\n")[1]
      else:
           direct_body = ""
 
