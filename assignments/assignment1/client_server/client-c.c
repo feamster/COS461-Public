@@ -1,5 +1,5 @@
 /*****************************************************************************
- * client-c.c                                                                 
+ * client-c.c
  * Name:
  * NetId:
  *****************************************************************************/
@@ -21,7 +21,7 @@
 /* TODO: client()
  * Open socket and send message from stdin.
  * Return 0 on success, non-zero on failure
-*/
+ */
 int client(char *server_ip, char *server_port) {
   return 0;
 }
@@ -29,7 +29,7 @@ int client(char *server_ip, char *server_port) {
 /*
  * main()
  * Parse command-line arguments and call client function
-*/
+ */
 int main(int argc, char **argv) {
   char *server_ip;
   char *server_port;
