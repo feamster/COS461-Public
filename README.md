@@ -1,1 +1,5 @@
 # Princeton University COS 461: Computer Networks
+
+**NOTE**: The following assignments have been officially released. We advise against starting early on (last year's) assignments in the repository that haven't been officially released as these are still subject to change.
+
+[Programming Assignment 1 (Virtual Machine Setup, Sockets)](https://github.com/PrincetonUniversity/COS461-Public/tree/master/assignments/assignment1)
