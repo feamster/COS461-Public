@@ -13,13 +13,22 @@ Vagrant.configure(2) do |config|
 
   ## Configure hostname and port forwarding
   config.vm.hostname = "cos461"
-  config.vm.network "forwarded_port", guest: 8888, host: 8888
   config.ssh.forward_x11 = true
+  config.vm.network "forwarded_port", guest: 8888, host: 8888
   # Assignment 7
   config.vm.network "forwarded_port", guest: 12000, host: 12000
 
+  vagrant_root = File.dirname(__FILE__)
+
+  # Emacs settings
+  config.vm.provision "file", source: "#{vagrant_root}/config_files/dot_emacs", destination: "~/.emacs"
+
+  # Jupyter notebook settings
+  config.vm.provision "file", source: "#{vagrant_root}/config_files/jupyter_notebook_config.py", destination: "~/.jupyter/jupyter_notebook_config.py"
+
   ## Provisioning
   config.vm.provision "shell", inline: <<-SHELL
+     # Assignment 1
      sudo apt-get update
      sudo apt-get -y upgrade
      sudo apt-get install -y emacs
@@ -29,30 +38,46 @@ Vagrant.configure(2) do |config|
      rm -f get-pip.py
      sudo pip install jupyter
      sudo apt-get install -y gccgo-go
+     sudo pip install -U tzupdate
+     echo "export PYTHONPATH=${PYTHONPATH}:/vagrant/course-bin" >> /home/vagrant/.profile
+
+     # Set correct permissions for bash scripts
+     find /vagrant -name "*.sh" | xargs chmod -v 744
+
+     # If the repository was pulled from Windows, convert line breaks to Unix-style
+     sudo apt-get install -y dos2unix
+     printf "Using dos2unix to convert files to Unix format if necessary..."
+     find /vagrant -name "*" -type f | xargs dos2unix -q
+
      # Assignment 2
      sudo apt-get install -y python-tk
+
      # Assignment 3
+     sudo pip install nbconvert
      sudo apt-get install -y mininet
      sudo apt-get install -y python-numpy
      sudo apt-get install -y python-matplotlib
+
      # Assignment 4
      sudo apt-get install -y whois
      sudo pip install ipaddress
+
      # Assignment 6
      sudo pip install scapy
+     sudo apt-get install python-scipy
      sudo apt-get install -y bind9
      sudo cp /vagrant/assignment6/bind/* /etc/bind
+
      # Assignment 7
      sudo apt-get install -y apache2-utils
+     echo "export GOPATH=/vagrant/assignment7" >> /home/vagrant/.profile
   SHELL
 
-  ## Notebook
+  ## Provisioning to do on each "vagrant up"
   config.vm.provision "shell", run: "always", inline: <<-SHELL
-    if ! wget -qO /dev/null "0.0.0.0:8888"; then jupyter notebook --notebook-dir=/vagrant --no-browser --ip=0.0.0.0 --port 8888 --NotebookApp.token='' & fi
+    sudo tzupdate 2> /dev/null
     # Assignment 3
     sudo modprobe tcp_probe port=5001 full=1
-    # Assignment 7
-    export GOPATH=/vagrant/assignment7
   SHELL
 
   ## CPU & RAM
