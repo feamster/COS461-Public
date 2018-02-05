@@ -1,0 +1,10 @@
+;; Useful settings for emacs.
+;; This file will be copied to ~/.emacs in the VM.
+;; Do not change this unless you know what you're doing, or for some reason 
+;; you actually prefer the default emacs settings, in which case you can delete
+;; this file in the VM (~/.emacs).
+
+(custom-set-variables
+ '(inhibit-startup-screen t)
+ '(column-number-mode t)
+ '(show-paren-mode 1))
