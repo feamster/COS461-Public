@@ -125,7 +125,7 @@ You should program only in the locations of the provided files marked with `TODO
 The following sections provide details for the client and server programs in each language.
 
 ### C
-The classic "Beej's Guide to Network Programming" is located here: https://beej.us/guide/bgnet/html/single/bgnet.html.  
+The classic "Beej's Guide to Network Programming" is located here: https://beej.us/guide/bgnet/html/single/bgnet.html.
 The [system call section](https://beej.us/guide/bgnet/html/single/bgnet.html#syscalls) and [client/server example section](https://beej.us/guide/bgnet/html/single/bgnet.html#clientserver) will be most relevant. The man pages are also useful for looking up individual functions (e.g. `man socket`).
 
 The files `client-c.c` and `server-c.c` contain scaffolding code. You will need to add socket programming and I/O code in the locations marked `TODO`. The reference solutions have roughly 70  (well commented and spaced) lines of code in the `TODO` sections of each file. Your implementations may be shorter or longer.
