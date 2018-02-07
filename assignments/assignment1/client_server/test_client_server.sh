@@ -34,7 +34,7 @@ SGS=/vagrant/assignment1/client_server/server-go # Student go server
 # $4 = print diff (no if 0, yes otherwise)
 function compare {
   if diff -q $1 $2 > /dev/null; then
-    printf "\nSUCCESS: Message received matches message sent!\n"      
+    printf "\nSUCCESS: Message received matches message sent!\n"
     ((numCorrect++))
   else
     printf "\nFAILURE: Message received doesn't match message sent.\n"
@@ -44,9 +44,9 @@ function compare {
     fi
   fi
   if [ $3 -ne 0 ]; then
-    printf "________________________________________"               
+    printf "________________________________________"
   fi
-  printf "\n" 
+  printf "\n"
 }
 
 # $1 = client, $2 = server, $3 = port, $4 = print separator (no if 0, yes otherwise),
@@ -86,14 +86,14 @@ function all-tests {
 
   ###############################################################################
 
-  printf "\n$testNum. TEST RANDOM BINARY MESSAGE\n"                                             
+  printf "\n$testNum. TEST RANDOM BINARY MESSAGE\n"
   head -c100000 /dev/urandom > test_message.txt
   test "$1" "$2" $3 1 0
   ((testNum++))
 
   ###############################################################################
 
-  printf "\n$testNum. TEST SERVER INFINITE LOOP (multiple sequential clients to same server)\n" 
+  printf "\n$testNum. TEST SERVER INFINITE LOOP (multiple sequential clients to same server)\n"
   $2 $3 > test_output.txt &
   SERVER_PID=$!
   sleep 0.2
@@ -115,20 +115,20 @@ function all-tests {
   ###############################################################################
 
   # TODO: maybe remove test_message$i.txt for each i? Or better to keep?
-  printf "\n$testNum. TEST SERVER QUEUE (overlapping clients to same server)\n"                 
+  printf "\n$testNum. TEST SERVER QUEUE (overlapping clients to same server)\n"
   rm -f test_message.txt
   stdbuf -i0 -o0 $2 $3 > test_output.txt &
   SERVER_PID=$!
   sleep 0.2
   for i in {0..9}; do
-  	timeout 1.5 cat /dev/urandom | LC_ALL=C tr -dc 'a-zA-Z0-9' | tee test_message$i.txt | $1 127.0.0.1 $3 >/dev/null &
+    timeout 1.5 cat /dev/urandom | LC_ALL=C tr -dc 'a-zA-Z0-9' | tee test_message$i.txt | $1 127.0.0.1 $3 >/dev/null &
     CLIENT_PID[$i]=$!
     # Essential to wait between spawning new processes so order of messages is preverved
-  	sleep 0.1
+    sleep 0.1
   done
   sleep 2
   for i in {0..9}; do
-  	cat test_message$i.txt >> test_message.txt
+    cat test_message$i.txt >> test_message.txt
   done
   kill $SERVER_PID
   wait $SERVER_PID 2> /dev/null
@@ -161,9 +161,9 @@ rm -rf $WORKSPACE
 mkdir $WORKSPACE
 cd $WORKSPACE
 
-printf "================================================================\n" 
-printf "Testing C client against C server (1/4)                         \n" 
-printf "================================================================\n" 
+printf "================================================================\n"
+printf "Testing C client against C server (1/4)                         \n"
+printf "================================================================\n"
 
 if [[ -f $SCC && -f $SCS ]]; then
   all-tests $SCC $SCS $PORT
@@ -174,9 +174,9 @@ fi
 
 if [[ $LANGUAGE == "python" ]]; then
 
-  printf "================================================================\n" 
-  printf "Testing Python client against Python server (2/4)               \n" 
-  printf "================================================================\n" 
+  printf "================================================================\n"
+  printf "Testing Python client against Python server (2/4)               \n"
+  printf "================================================================\n"
 
   if [[ -f $SPC && -f $SPS ]]; then
     all-tests "python $SPC" "python $SPS" $PORT
@@ -185,9 +185,9 @@ if [[ $LANGUAGE == "python" ]]; then
     ((testNum+=$TESTS_PER_IMPL))
   fi
 
-  printf "================================================================\n" 
-  printf "Testing C client against Python server (3/4)                    \n" 
-  printf "================================================================\n" 
+  printf "================================================================\n"
+  printf "Testing C client against Python server (3/4)                    \n"
+  printf "================================================================\n"
 
   if [[ -f $SCC && -f $SPS ]]; then
     all-tests $SCC "python $SPS" $PORT
@@ -196,9 +196,9 @@ if [[ $LANGUAGE == "python" ]]; then
     ((testNum+=$TESTS_PER_IMPL))
   fi
 
-  printf "================================================================\n" 
-  printf "Testing Python client against C server (4/4)                    \n" 
-  printf "================================================================\n" 
+  printf "================================================================\n"
+  printf "Testing Python client against C server (4/4)                    \n"
+  printf "================================================================\n"
 
   if [[ -f $SPC && -f $SCS ]]; then
     all-tests "python $SPC" $SCS $PORT
@@ -209,9 +209,9 @@ if [[ $LANGUAGE == "python" ]]; then
 
 elif [[ $LANGUAGE == "go" ]]; then
 
-  printf "================================================================\n" 
-  printf "Testing Go client against Go server (2/4)                       \n" 
-  printf "================================================================\n" 
+  printf "================================================================\n"
+  printf "Testing Go client against Go server (2/4)                       \n"
+  printf "================================================================\n"
 
   if [[ -f $SGC && -f $SGS ]]; then
     all-tests $SGC $SGS $PORT
@@ -220,9 +220,9 @@ elif [[ $LANGUAGE == "go" ]]; then
     ((testNum+=$TESTS_PER_IMPL))
   fi
 
-  printf "================================================================\n" 
-  printf "Testing C client against Go server (3/4)                        \n" 
-  printf "================================================================\n" 
+  printf "================================================================\n"
+  printf "Testing C client against Go server (3/4)                        \n"
+  printf "================================================================\n"
 
   if [[ -f $SCC && -f $SGS ]]; then
     all-tests $SCC $SGS $PORT
@@ -231,9 +231,9 @@ elif [[ $LANGUAGE == "go" ]]; then
     ((testNum+=$TESTS_PER_IMPL))
   fi
 
-  printf "================================================================\n" 
-  printf "Testing Go client against C server (4/4)                        \n" 
-  printf "================================================================\n" 
+  printf "================================================================\n"
+  printf "Testing Go client against C server (4/4)                        \n"
+  printf "================================================================\n"
 
   if [[ -f $SGC && -f $SCS ]]; then
     all-tests $SGC $SCS $PORT

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * server-c.c                                                                 
+ * server-c.c
  * Name:
  * NetId:
  *****************************************************************************/
@@ -22,15 +22,15 @@
  * Open socket and wait for client to connect
  * Print received message to stdout
  * Return 0 on success, non-zero on failure
-*/
+ */
 int server(char *server_port) {
-    return 0;
+  return 0;
 }
 
 /*
  * main():
  * Parse command-line arguments and call server function
-*/
+ */
 int main(int argc, char **argv) {
   char *server_port;
 
