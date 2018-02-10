@@ -114,27 +114,32 @@ function all-tests {
 
   ###############################################################################
 
-  # TODO: maybe remove test_message$i.txt for each i? Or better to keep?
+  # Send 10 random concurent alphanumeric messages to server.
+  # Since order of sending and order of receival can differ, we sort the messages
+  # on each end and see if the results match.
+
   printf "\n$testNum. TEST SERVER QUEUE (overlapping clients to same server)\n"                 
   rm -f test_message.txt
   stdbuf -i0 -o0 $2 $3 > test_output.txt &
   SERVER_PID=$!
   sleep 0.2
   for i in {0..9}; do
-  	timeout 1.5 cat /dev/urandom | LC_ALL=C tr -dc 'a-zA-Z0-9' | tee test_message$i.txt | $1 127.0.0.1 $3 >/dev/null &
+  	(timeout 1 cat /dev/urandom | LC_ALL=C tr -dc 'a-zA-Z0-9' ; echo) | tee test_message$i.txt | $1 127.0.0.1 $3 >/dev/null &
     CLIENT_PID[$i]=$!
-    # Essential to wait between spawning new processes so order of messages is preverved
-  	sleep 0.1
   done
   sleep 2
   for i in {0..9}; do
   	cat test_message$i.txt >> test_message.txt
   done
+  sort test_message.txt > test_message_sorted.txt
+  rm -f test_message.txt
   kill $SERVER_PID
   wait $SERVER_PID 2> /dev/null
   sleep 1
-  compare test_message.txt test_output.txt 0 0
-  rm -f test_output.txt test_message.txt
+  sort test_output.txt > test_output_sorted.txt
+  rm -f test_output.txt
+  compare test_message_sorted.txt test_output_sorted.txt 0 0
+  rm -f test_output_sorted.txt test_message_sorted.txt
   sleep 0.2
   ((testNum++))
 }
