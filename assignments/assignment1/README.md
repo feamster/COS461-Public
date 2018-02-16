@@ -157,6 +157,7 @@ You should build your solution by running `make go` in the `assignment1/client_s
 You should test your implementations by attempting to send messages from your clients to your servers. The server can be run in the background (append a `&` to the command) or in a separate SSH window. You should use `127.0.0.1` as the server IP and a high server port number between 10000 and 60000. You can kill a background server with the command `fg` to bring it to the foreground then `ctrl-c`.
 
 The Bash script `test_client_server.sh` will test your implementation by attempting to send several different messages between all 4 combinations of your clients and servers (C client to C server, C client to Python/Go server, etc.). The messages are the following:
+
 0. The short message "Go Tigers!\n"
 0. A long, randomly generated alphanumeric message
 0. A long, randomly generated binary message
