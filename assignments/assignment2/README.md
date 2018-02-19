@@ -150,7 +150,7 @@ lost sys.stderr
 
 ## Submission and Grading
 
-Only one partner should submit the `DVrouter.py` and `LSrouter.py` files to the CS Dropbox here: [Assignment 2 - Intradomain Routing](https://dropbox.cs.princeton.edu/COS461_S2018/Assignment_2_-_Intradomain_Routing). Indicate both partner's names and netIDs in a comment at the top of both files. **In addition, submit a textfile `partners.txt` that contains your netIDs (no aliases!), one per line.** 
+Only one partner should submit the `DVrouter.py` and `LSrouter.py` files to the CS Dropbox here: [Assignment 2 - Intradomain Routing](https://dropbox.cs.princeton.edu/COS461_S2018/Assignment_2_-_Intradomain_Routing). Indicate both partner's names and netIDs in a comment at the top of both files. **In addition, submit a textfile `partners.txt` that contains only your netIDs (no aliases!), one per line.** 
 
 We will run the network simulation using the provided json files and additional test cases with different network architectures. Your grade will be based on whether your algorithm finds the lowest cost paths and whether you have violated any of the restrictions listed above. We will also check that `DVrouter` actually runs a distance-vector algorithm and that `LSrouter` actually runs a link-state algorithm.
 
