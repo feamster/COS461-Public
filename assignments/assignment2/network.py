@@ -115,12 +115,12 @@ class Network:
         if self.changes:
             self.handleChangesThread = handle_changes_thread(self)
             self.handleChangesThread.start()
-        signal.signal(signal.SIGINT, self.handleInterrupt)
         if not self.visualize:
+            signal.signal(signal.SIGINT, self.handleInterrupt)
             time.sleep(self.endTime/float(1000))
             self.finalRoutes()
             sys.stdout.write("\n"+self.getRouteString()+"\n")
-        self.joinAll()
+            self.joinAll()
 
 
 
