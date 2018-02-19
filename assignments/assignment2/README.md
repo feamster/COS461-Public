@@ -22,7 +22,7 @@ This reading provides enough information to design both the distance-vector and 
 ## Provided code
 
 ### Download
-Open your terminal and `cd` into the `<>/assignments` directory you downloaded in Assignment 1. Run the command `git pull` to download the code for this assignment.
+Open your terminal and `cd` into the `COS461-Public/assignments` directory you downloaded in Assignment 1. Run the command `git pull` to download the code for this assignment.
 
 Run `vagrant reload --provision` to install the needed libraries for this assignment and start the VM (no need to run `vagrant up` in addition).
 
