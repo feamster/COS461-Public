@@ -79,7 +79,7 @@ There are limitations on what information your `DVrouter` and `LSrouter` classes
 * Your code may not call any functions or methods, instantiate any classes, or access any variables defined in any of the other provided python files, with the following exceptions:
   * `LSrouter` and `DVrouter` can call the inherited `send` function of the `Router` superclass (e.g. `self.send(port, packet)`).
   * `LSrouter` and `DVrouter` can access the `addr` field of the `Router` superclass (e.g. `self.addr`) to get their own address.
-  * `LSrouter` and `DVrouter` can create new `Packet` objects and call any of the methods defined in `packet.py` *EXCEPT* for `getRoute()`, `addToRoute()`, and `animateSend()`.
+  * `LSrouter` and `DVrouter` can create new `Packet` objects and call any of the methods defined in `packet.py` *EXCEPT* for `getRoute()`, `addToRoute()`, and `animateSend()`. You can access and change any of the fields of a `Packet` object EXCEPT for `route`. 
 
 
 ### Method descriptions
@@ -114,6 +114,8 @@ You will need to create packets to send information between routers using the `P
 You will have to decide what to include in the `content` field of these packets. The content should be reasonable for the algorithm you are implementing (e.g. don't send an entire routing table for link-state routing).  
 
 Packet content must be a string. This is checked by an assert statement when the packet is sent. `DVrouter` and `LSrouter` import the `dumps()` and `loads()` functions which return a string (in json format) when given a python object. Using these functions is an easy way to stringify and de-stringify.
+
+You can access and set/modify any of the fields of a packet object (including `content`, `srcAddr`, `dstAdddr` and `kind`) except for `route` (see "Restrictions" above).
 
 ### Link reliability
 If a link between two routers fails or is added, the appropriate `handle` function will *always* be called on both routers after the failure or addition.
