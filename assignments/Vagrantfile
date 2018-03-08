@@ -36,6 +36,8 @@ Vagrant.configure(2) do |config|
      curl https://bootstrap.pypa.io/get-pip.py > get-pip.py
      sudo python get-pip.py
      rm -f get-pip.py
+     # Install old version of tornado before installing jupyter
+     sudo pip install tornado==4.5.3
      sudo pip install jupyter
      sudo apt-get install -y gccgo-go
      sudo pip install -U tzupdate
