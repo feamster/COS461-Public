@@ -1,0 +1,68 @@
+###########################################
+
+COS 461: Assignment 6
+Names: 
+NetIds:
+
+###########################################
+
+
+Question 1) Approximately how long into the simulation (seconds)
+            is the DNS reflection attack detected? 
+            How can you tell this from the DNS response rate plot?
+
+Answer 1) TODO
+
+
+##########################################
+
+Question 2) With what probability does your implementation drop 
+            DNS response packets to perform rate limiting?
+
+Answer 2) TODO
+
+
+##########################################
+
+Question 3) Why did you choose this probability? 
+            How does changing this probability affect
+            the DNS response rate plot? (Re-run the experiment
+            with different probability values if you are not sure). 
+
+Answer 3) TODO
+
+
+##########################################
+
+
+Question 4) What components of the detection/mitigation technique used in this assignment
+            may not be optimal for real-world deployment? 
+            Choose one and explain how it could be improved.
+
+Answer 4) TODO
+
+
+##########################################
+
+Question 5) DNS reflection attacks are of real concern in the global Internet, 
+            but a general solution that does not involve updating all
+            connected hosts at once has yet to be found. 
+
+	    Think about the reasons why DNS reflection attacks are possible 
+            (e.g. what does the attacker do, what does the DNS resolver do, 
+            what causes the victim to be negatively affected). 
+
+            Pick one of these reasons and brainstorm methods to prevent it, 
+            thereby preventing DNS reflection attacks 
+            (even if these methods require a complete Internet upgrade). 
+
+            Describe the reason you chose and a possible prevention method
+            you came up with.  
+
+            This question is intentionally open-ended and will be graded leniently. 
+            Try to be concise yet thorough. 
+
+Answer 5) TODO
+            
+
+
