@@ -1,6 +1,6 @@
 # Assignment 1: Virtual Machine Setup & Socket Programming
 
-### Due Monday February 19 at 5:00 pm
+### Due Monday February 18 at 5:00 pm
 
 Welcome to COS 461: Computer Networks! Through this and the following  assignments, you will gain hands-on experience with real-world network programming.  You will write a program that allows your computer to communicate with another, be it across the room or across the world. You will program a router to deliver information to the right destination in a network with thousands of nodes.  You will learn how decisions made by protocol designers and network administrators affect Internet performance.  You will analyze data from Princeton's own network to detect security threats and learn how to prevent them.
 
@@ -198,7 +198,7 @@ Here are some debugging tips. If you are still having trouble, ask a question on
 
 
 ### Submission and grading
-Submit the assignment by uploading your modified client and server files to CS DropBox here: [Assignment 1 - Socket Programming](https://dropbox.cs.princeton.edu/COS461_S2018/Assignment_1_-_Socket_Programming).
+Submit the assignment by uploading your modified client and server files to CS DropBox here: [Assignment 1 - Socket Programming](https://dropbox.cs.princeton.edu/COS461_S2019/Assignment-1-Socket-Programming).
 
 We will grade your assignments by running the `test_client_server.sh` script and additional tests with large messages, multiple simultaneous clients, etc. Double check the specifications above and perform your own tests before submitting.
 
