@@ -1,6 +1,6 @@
 # Assignment 2: Intradomain Routing Algorithms
 
-### Due <>
+### Due March 4th, 5:00pm
 
 The Internet is composed of many independent networks (called autonomous systems) that must cooperate in order for packets to reach their destinations.  This necessitates different protocols and algorithms for routing packet within autonomous systems, where all routers are operated by the same entity, and between autonomous systems, where business agreements and other policy considerations affect routing decisions.
 
