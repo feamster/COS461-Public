@@ -4,3 +4,4 @@
 
 * [Programming Assignment 1 (Virtual Machine Setup, Sockets)](https://github.com/PrincetonUniversity/COS461-Public/tree/master/assignments/assignment1)
 * [Programming Assignment 2 (Intradomain Routing Algorithms)](https://github.com/PrincetonUniversity/COS461-Public/tree/master/assignments/assignment2)
+* [Programming Assignment 3 (TCP Congestion Control and Bufferbloat)](https://github.com/PrincetonUniversity/COS461-Public/tree/master/assignments/assignment3)
