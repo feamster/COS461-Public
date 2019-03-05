@@ -40,7 +40,7 @@ The "Help" menu contains many additional resources about Jupyter notebooks (incl
 
 ## Submission
 
-Submit your completed `Assignment3_Notebook.ipynb` file on CS Dropbox here: <>. Submit only once for both partners. Remember to put your names and netids in the marked location at the top of the file. Also submit a `partners.txt` file that contains only your netIDs, one per line.
+Submit your completed `Assignment3_Notebook.ipynb` file on CS Dropbox here: https://dropbox.cs.princeton.edu/COS461_S2019/Assignment-3-TCP-Congestion-Control-and-Bufferbloat. Submit only once for both partners. Remember to put your names and netids in the marked location at the top of the file. Also submit a `partners.txt` file that contains only your netIDs, one per line.
 
 #### Acknowledgement
 This assignment is modeled after a [similar assignment](http://web.stanford.edu/class/cs244/pa1.html) at Stanford University.
