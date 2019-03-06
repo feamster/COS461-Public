@@ -32,8 +32,8 @@ $ sudo pip uninstall jupyter
 Re-install Jupyter and matplotlib with the --user flag.
 
 ```
-$ sudo pip install --user matplotlib
-$ sudo pip install --user jupyter
+$ pip install --user matplotlib
+$ pip install --user jupyter
 ```
 
 
