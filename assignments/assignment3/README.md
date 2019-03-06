@@ -22,7 +22,7 @@ Reprovision your VM to install necessary packages for this assignment.
 $ vagrant reload --provision
 ```
 
-Uninstall existing versions of Jupyter and matplotlib.
+After shelling into your VM, uninstall existing versions of Jupyter and matplotlib.
 
 ```
 $ sudo pip uninstall matplotlib
