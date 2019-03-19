@@ -1,6 +1,6 @@
 # Assignment 4: Passive Network Measurement
 
-### Due <>
+### Due April 1st, 5:00pm
 
 You may work with a partner on this assignment.
 
@@ -22,7 +22,7 @@ Reprovision your VM to install necessary packages for this assignment.
 $ vagrant reload --provision
 ```
 
-On the VM, run the command `sudo jupyter notebook &`. This will start a new Jupyter notebook server in the background. Even though it is running in the background, it will sometimes print informative messages to the terminal. You can press Enter each time you get a message to get the shell prompt back. To shut down the notebook, run `fg` then press Control-C twice (once to get the confirmation message, another time to skip confirmation).
+On the VM, run the command `sudo ~/.local/bin/jupyter-notebook &`. This will start a new Jupyter notebook server in the background. Even though it is running in the background, it will sometimes print informative messages to the terminal. You can press Enter each time you get a message to get the shell prompt back. To shut down the notebook, run `fg` then press Control-C twice (once to get the confirmation message, another time to skip confirmation).
 
 While the notebook is running, on your host machine, open up your browser and type `localhost:8888` in the address bar. This should open to the Jupyter notebook file selection window.  Juypter notebook is actually running on port 8888 on your vagrant VM, but you can access it through your host machine browser because the port is being forwarded between the VM and the host machine.  
 
