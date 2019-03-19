@@ -40,4 +40,4 @@ The "Help" menu contains many additional resources about Jupyter notebooks (incl
 
 ## Submission
 
-Submit your completed `Assignment4_Notebook.ipynb` file on CS Dropbox here: <>. Submit only once for both partners. Remember to put your names and netids in the marked location at the top of the file.
+Submit your completed `Assignment4_Notebook.ipynb` file on CS Dropbox here: https://dropbox.cs.princeton.edu/COS461_S2019/Assignment-4-Passive-Network-Measurement. Submit only once for both partners. Remember to put your names and netids in the marked location at the top of the file.
