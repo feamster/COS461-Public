@@ -7,3 +7,4 @@
 * [Programming Assignment 3 (TCP Congestion Control and Bufferbloat)](https://github.com/PrincetonUniversity/COS461-Public/tree/master/assignments/assignment3)
 * [Programming Assignment 4 (Passive Network Measurement)](https://github.com/PrincetonUniversity/COS461-Public/tree/master/assignments/assignment4)
 * [Programming Assignment 5 (Portscan)](https://github.com/PrincetonUniversity/COS461-Public/tree/master/assignments/assignment5)
+* [Programming Assignment 6 (DNS Reflection)](https://github.com/PrincetonUniversity/COS461-Public/tree/master/assignments/assignment6)
