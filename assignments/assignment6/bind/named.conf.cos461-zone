@@ -1,0 +1,4 @@
+zone "cos461.net" {
+	type master;
+	file "/etc/bind/named.conf.cos461";
+}
