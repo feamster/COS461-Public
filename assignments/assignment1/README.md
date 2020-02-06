@@ -198,7 +198,7 @@ Here are some debugging tips. If you are still having trouble, ask a question on
 
 
 ### Submission and grading
-Submit the assignment by uploading your modified client and server files to CS DropBox here: [Assignment 1 - Socket Programming](https://dropbox.cs.princeton.edu/COS461_S2019/Assignment-1-Socket-Programming).
+Submit the assignment by uploading your modified client and server files to CS DropBox here: [Assignment 1 - Socket Programming](https://tigerfile.cs.princeton.edu/COS461_S2020/assignment1).
 
 We will grade your assignments by running the `test_client_server.sh` script and additional tests with large messages, multiple simultaneous clients, etc. Double check the specifications above and perform your own tests before submitting.
 
