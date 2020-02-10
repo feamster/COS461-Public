@@ -159,8 +159,7 @@ $ vagrant ssh
 
 * You will find the following starter code files in the `/vagrant/assignment7`
   directory in the VM:
-  ``` Makefile       http_proxy.go       http_proxy_DNS.go
-      test_scripts        README.md      src
+  ``` Makefile       http_proxy.go       http_proxy_DNS.go       test_scripts        README.md      src
   ```
 
 ### Task Specification
