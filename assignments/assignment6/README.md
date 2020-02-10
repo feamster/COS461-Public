@@ -65,8 +65,11 @@ From your terminal, type:
 This opens a TCP connection to the server at www.google.com listening on port
 80 (the default HTTP port). You should see something like this:
 
-``` Trying 172.217.1.68...  Connected to www.google.com.  Escape character is
-'^]'.  ```
+```
+Trying 172.217.1.68...
+Connected to www.google.com.
+Escape character is '^]'.
+```
 
 type the following:
 
@@ -74,10 +77,14 @@ type the following:
 
 and hit enter **twice**. You should see something like the following:
 
-``` HTTP/1.1 200 OK Date: Fri, 17 Feb 2017 23:58:09 GMT (More HTTP headers...)
+```
+HTTP/1.1 200 OK
+Date: Fri, 17 Feb 2017 23:58:09 GMT
+(More HTTP headers...)
 Content-Type: text/html; charset=ISO-8859-1
 
-<!doctype html><html itemscope="" ...  (More HTML follows) ```
+<!doctype html><html itemscope="" ...  (More HTML follows)
+```
 
 There may be some additional pieces of header information as well, such as
 setting cookies and/or instructions to the browser or proxy on caching
@@ -129,8 +136,11 @@ Why use a proxy? There are a few possible reasons:
 ## Part A: HTTP Proxy
 
 ### Getting Started
-* On your host machine (laptop), go to the course directory.  ```bash $ cd
-  COS461-Public/assignments ```
+* On your host machine (laptop), go to the course directory.
+
+```bash
+$ cd COS461-Public/assignments
+```
 
 * Now, pull the latest update from Github.  ```bash $ git pull ```
 
