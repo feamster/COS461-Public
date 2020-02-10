@@ -142,15 +142,26 @@ Why use a proxy? There are a few possible reasons:
 $ cd COS461-Public/assignments
 ```
 
-* Now, pull the latest update from Github.  ```bash $ git pull ```
+* Now, pull the latest update from Github.
+```bash
+$ git pull
+```
 
-* Reprovision your VM as follows: ```bash $ vagrant reload --provision ```
+* Reprovision your VM as follows:
+```bash
+$ vagrant reload --provision
+```
 
-* SSH to the VM: ```bash $ vagrant ssh ```
+* SSH to the VM:
+```bash
+$ vagrant ssh
+```
 
-* You will find the following starter code files in the /vagrant/assignment7
-  directory in the VM: ``` Makefile       http_proxy.go       http_proxy_DNS.go
-  test_scripts        README.md      src ```
+* You will find the following starter code files in the `/vagrant/assignment7`
+  directory in the VM:
+  ``` Makefile       http_proxy.go       http_proxy_DNS.go
+      test_scripts        README.md      src
+  ```
 
 ### Task Specification
 
@@ -222,12 +233,18 @@ client.
 
 For example, if the proxy accepts the following request from a client:
 
-``` GET http://www.princeton.edu/ HTTP/1.1 ```
+```
+GET http://www.princeton.edu/ HTTP/1.1
+```
 
 It should send the following request to the remote server:
 
-``` GET / HTTP/1.1 Host: www.princeton.edu Connection: close (Additional client
-specified headers, if any...) ```
+```
+GET / HTTP/1.1
+Host: www.princeton.edu
+Connection: close
+(Additional client specified headers, if any...)
+```
 
 Note that we always send HTTP/1.1 flags and a `Connection: close` header to the
 server, so that it will close the connection after its response is fully
@@ -249,12 +266,14 @@ required in this assignment because a well-behaving server would respond with a
 close token.
 
 
-#### Status Codes from Proxy to Client For any error caught by the proxy, the
-proxy should return the status 500 'Internal Error'. As stated above, any
-request method other than GET should cause your proxy to return status 500
-'Internal Error' rather than 501 'Not Implemented'. Likewise, for any invalid,
-incorrectly formed headers or requests, your proxy should return status 500
-'Internal Error' rather than 400 'Bad Request' to the client.
+#### Status Codes from Proxy to Client
+
+For any error caught by the proxy, the proxy should return the status 500
+'Internal Error'. As stated above, any request method other than GET should
+cause your proxy to return status 500 'Internal Error' rather than 501 'Not
+Implemented'. Likewise, for any invalid, incorrectly formed headers or
+requests, your proxy should return status 500 'Internal Error' rather than 400
+'Bad Request' to the client.
 
 Otherwise, your proxy should simply forward status replies from the remote
 server to the client. This means most 1xx, 2xx, 3xx, 4xx, and 5xx status
@@ -271,9 +290,13 @@ Run your proxy with the following command:
 listen on. As a basic test of functionality, try requesting a page using telnet
 (don't forget to press enter twice):
 
-``` telnet localhost <port> Trying 127.0.0.1...  Connected to
-localhost.localdomain (127.0.0.1).  Escape character is '^]'.  GET
-http://www.example.com/ HTTP/1.1 ```
+```
+telnet localhost <port>
+Trying 127.0.0.1... 
+Connected to localhost.localdomain (127.0.0.1). 
+Escape character is '^]'.
+GET http://www.example.com/ HTTP/1.1
+```
 
 If your proxy is working correctly, the headers and HTML of example.com should
 be displayed on your terminal screen. Notice here that we request the absolute
@@ -286,13 +309,19 @@ telnet concurrently from two different shells.
 
 Then try testing your proxy with the supplied `test_proxy.py`  script.  This
 will compare the result of fetching 3 pre-determined websites directly versus
-through your proxy: ``` python test_scripts/test_proxy.py http_proxy  <port
-(optional, will be random if omitted)> ```
+through your proxy:
+
+```
+python test_scripts/test_proxy.py http_proxy  <port (optional, will be random if omitted)>
+```
 
 Once you have passed all 4 tests in `test_proxy.py`, try the
 `test_proxy_conc.py` script. This will test your proxy with different numbers
-of concurrent client connections.  ``` python test_scripts/test_proxy_conc.py
-http_proxy  <port (optional, will be random if omitted)> ```
+of concurrent client connections.
+
+```
+python test_scripts/test_proxy_conc.py http_proxy  <port (optional, will be random if omitted)>
+```
 
 For a slightly more complex test, you can configure Firefox to use your proxy
 server as its web proxy as follows:
@@ -321,11 +350,13 @@ that he or she will next request a page linked to from that page.
 ### Task Specification
 
 Your task is to add DNS prefetching to the proxy you implemented in Part A.
-First, make a copy of your proxy called `http_proxy_DNS.go`: ``` cp
-http_proxy.go http_proxy_DNS.go ``` You should implement DNS prefetching in
-this new file. **Leave the original proxy unedited**  because you will need to
-submit both. In the new copy, change the filename in the header to
-"http_proxy_DNS.go".
+First, make a copy of your proxy called `http_proxy_DNS.go`:
+```
+cp http_proxy.go http_proxy_DNS.go
+```
+You should implement DNS prefetching in this new file. **Leave the original
+proxy unedited**  because you will need to submit both. In the new copy, change
+the filename in the header to "`http_proxy_DNS.go`".
 
 In order to find the links in the response from remote server, you will need to
 parse the HTML content.  The `net/html` library contains functions for
@@ -348,12 +379,14 @@ pre-determined IP address.
 ### Testing Your DNS Prefetching Proxy
 
 Test your DNS prefetching proxy the same way as you tested your original proxy.
-When using the test scripts, just change the first command line argument: ```
-python test_scripts/test_proxy.py http_proxy_DNS  <port (optional, will be
-random if omitted)> python test_scripts/test_proxy_conc.py http_proxy_DNS
-<port (optional, will be random if omitted)> ``` You will not notice any
-speedup on these tests, because they do not access additional websites through
-links. 
+When using the test scripts, just change the first command line argument:
+
+```
+python test_scripts/test_proxy.py http_proxy_DNS  <port (optional, will be random if omitted)>
+python test_scripts/test_proxy_conc.py http_proxy_DNS <port (optional, will be random if omitted)>
+```
+You will not notice any speedup on these tests, because they do not access
+additional websites through links. 
 
 In addition, you can use Wireshark to verify that the proxy is performing DNS
 lookups correctly.
