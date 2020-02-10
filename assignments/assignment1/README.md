@@ -17,9 +17,9 @@ the time allotted. If you have questions, want to suggest clarifications, or
 are struggling with any of the assignments this semester, please come to office
 hours, ask questions on Piazza, or talk to an instructor before or after class.
 
-You are not allowed to copy or look at code from other students. However, you
-are welcome to discuss the assignments with other students without sharing
-code.
+This is not a group assignment. **You are not allowed to copy or look at code
+from other students.** However, you are welcome to discuss the assignments with
+other students without sharing code.
 
 Let's get started!
 
@@ -183,8 +183,6 @@ doing this should only be necessary if you want to edit shell scripts.
 ### Step 8: Go take a break. You've earned it!
 
 ## Part B: Socket Programming
-
-**Part B is individual.**
 
 As discussed in lecture, socket programming is the standard way to write
 programs that communicate over a network. While originally developed for Unix
