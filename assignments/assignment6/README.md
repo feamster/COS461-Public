@@ -1,141 +1,368 @@
-# Assignment 6: Network Security - DNS Reflection
+# Assignment 6: HTTP Proxy
 
-### Due April 22nd, 5:00pm
+### Due May 12, 5:00pm
 
-DNS reflection/amplification attacks are a specific kind of DDoS attack that use DNS servers to flood a victim service or host with many DNS reply packets. In this assignment, you will learn a technique to detect and mitigate DNS reflection attacks and will apply this techniques on an emulated mininet network.
+In this assignment, you will implement a web proxy that passes requests and
+data between multiple web clients and web servers. The proxy should support
+**concurrent** connections. This assignment will give you a chance to get to
+know one of the most popular application protocols on the Internet -- the
+Hypertext Transfer Protocol (HTTP). When you're done with the assignment, you
+should be able to configure Firefox to use your  proxy implementation.
 
-You should work with a partner on this assignment.
+You may work with a partner on this assignment.
 
-## Background
+## Introduction: The Hypertext Transfer Protocol
 
-### Attack Description
+The Hypertext Transfer Protocol (HTTP) is the protocol used for communication
+on the web: it defines how your web browser requests resources from a web
+server and how the server responds. For simplicity, in this assignment, we will
+be dealing only with version 1.1 of the HTTP protocol, defined in detail in
+[RFC 2616](https://www.ietf.org/rfc/rfc2616.txt). You do not need to read the
+full text to complete this assignment. We summarize the most important parts
+further down.
 
-In a DNS reflection attack, an attacker sends a DNS request to a DNS server with the source IP address spoofed to the victim's IP address. The DNS server then sends the reply to the victim. The attacker can use many compromised machines (botnets) to generate a very large number of such requests, which results in an overwhelming amount of traffic (DNS responses) headed towards the victim's machine.
+HTTP communications happen in the form of transactions; a transaction consists
+of a client sending a request to a server and then reading the response.
+Request and response messages share a common basic format:
 
-In addition to this reflection component, the attack also involves "amplification." The size of each DNS response is typically larger than the size of each corresponding request. As a result, even if the attacker launches the attack from a single compromised machine, the attack will result in more traffic (by bytes) reaching the victim than was sent by the attacker. The amplification effect, and therefore the power of the attack, becomes even more pronounced when the attack is launched from many machines.
+*   An initial line (a request or response line, as defined below)
+*   Zero or more header lines
+*   A blank line (CRLF)
+*   An optional message body.
 
-### Detection
+The initial line and header lines are each followed by a "carriage-return
+line-feed" (\r\n) signifying the end-of-line.
 
-One way to detect DNS reflection attacks is to keep track of the DNS requests and responses that each host sends and receives. Suppose there is a middlebox at the edge of a network that has sufficient resources to process DNS traffic as it passes through the network.
-This middlebox can record, for each host, the identification number of each outgoing DNS query.  If a DNS response's identification number does not match any of the at-large requests recorded for its destination, the middlebox will increment a counter. If the counter passes some threshold, the middlebox may determine that the host is receiving unsolicited responses and is thus a victim of a reflection attack.
+For most common HTTP transactions, the protocol boils down to a relatively
+simple series of steps (important sections of [RFC
+2616](https://www.ietf.org/rfc/rfc2616.txt) are in parenthesis):
 
-### Mitigation
+1.  A client creates a connection to the server.
+2.  The client issues a request by sending a line of text to the server. This
+**request line** consists of an HTTP _method_ (most often "GET", but "POST",
+"PUT", and others are possible), a _request URI_ (like a URL), and the protocol
+version that the client wants to use ("HTTP/1.1"). The request line is followed
+by one or more header lines. The message body of the initial request is
+typically empty. (5.1-5.2, 8.1-8.3, 10, D.1)
+3.  The server sends a response message, with its initial line consisting of a
+**status line**, indicating if the request was successful. The status line
+consists of the HTTP version ("HTTP/1.1"), a _response status code_ (a
+numerical value that indicates whether or not the request was completed
+successfully), and a _reason phrase_, an English-language message providing
+description of the status code. Just as with the request message, there can be
+as many or as few header fields in the response as the server wants to return.
+Following the CRLF field separator, the message body contains the data
+requested by the client in the event of a successful request. (6.1-6.2,
+9.1-9.5, 10)
+4.  Once the server has returned the response to the client, it closes the
+connection.
 
-One way to mitigate DNS reflection is to rate-limit the attack traffic. More specifically, in the scenario described above, once the middlebox detects an attack towards a specific host, it can limit the rate of DNS responses that the host receives. One could think of completely blocking the traffic, but in the case of DNS, there could be some legitimate DNS responses that the host asked for and needs for maintaining its connection to the network.
+It's fairly easy to see this process in action without using a web browser.
+From your terminal, type:
 
-## Part A: Network Setup
+`telnet www.google.com 80`
 
-On your host machine (not the VM), go to the course assignments directory:
+This opens a TCP connection to the server at www.google.com listening on port
+80 (the default HTTP port). You should see something like this:
 
-```
-$ cd COS461-Public/assignments
-```
- Pull the latest update from Github:
-```
-$ git pull
-```
+``` Trying 172.217.1.68...  Connected to www.google.com.  Escape character is
+'^]'.  ```
 
-Reprovision your VM to install necessary packages for this assignment:
+type the following:
 
-```
-$ vagrant reload --provision
-```
+`GET http://www.google.com/ HTTP/1.1`
 
-You can then run `vagrant ssh` like usual.
-Running `sudo python start_net.py` from your vagrant VM terminal will setup the network shown in Fig. 1 in mininet. The start_net.py script opens a mininet command line interface (CLI) once the network is up and running. You can use mininet CLI commands to get network information and interact with the hosts and switches on your network if needed.
-Typing `help` into the mininet CLI will give you a list of available commands. To gracefully end the experiment, you should type `quit` on the mininet CLI. That takes care of cleaning up mininet and all the processes it has started. If it exited with an exception, or if attempting to start the simulation in the first place gave you an error, run the script `./cleanup_mininet.sh` (if permission is denied, run `chmod 744 cleanup_mininet.sh` first to change permissions).
+and hit enter **twice**. You should see something like the following:
 
-<figure>
-    <img width=700 src="figures/network.png">
-    <figcaption>
-        <b>Fig 1. &#8211 Mininet configuration</b>
-    </figcaption>
-</figure>
+``` HTTP/1.1 200 OK Date: Fri, 17 Feb 2017 23:58:09 GMT (More HTTP headers...)
+Content-Type: text/html; charset=ISO-8859-1
 
-In this setup, **s1**, **h1**, and **h4** constitute your private network. **mb** is the middlebox sitting at the  edge; this middlebox can see all the incoming and outgoing traffic of your network. **h3** is a host that is running `bind`, an open DNS resolver, and **h2** is an attacker. Middlebox **mb** has two interfaces, **mb-eth0** connecting to s1 and **mb-eth1** connectiong to s2.
+<!doctype html><html itemscope="" ...  (More HTML follows) ```
 
-Once you start the network, h1 and h4 begin to send DNS requests every 5 seconds and pings every 2 seconds to the DNS resolver (h3). At the same time, h2 starts sending *spoofed* DNS requests on behalf of h1 to the DNS resolver every half a second. Thus, h1 is going to be the victim of a DNS reflection attack.
+There may be some additional pieces of header information as well, such as
+setting cookies and/or instructions to the browser or proxy on caching
+behavior. What you are seeing is exactly what your web browser sees when it
+goes to the Google home page: the HTTP status line, the header fields, and
+finally the HTTP message body consisting of the HTML that your browser
+interprets to create a web page.
 
-## Part B: Detection & Mitigation
-The middlebox in the simulated network topology runs the python script  `mb.py`. This script uses a python library called Scapy to sniff packets from the two interfaces of the middlebox, applies the `handle_packet()` method to each packet, and sends the packet out on the correct interface.  You have to add code to the sections of `mb.py`  marked `TODO` in order to implement the DNS reflection attack detection and mitigation strategy described in the "Background" section above. Do not modify any existing code in `mb.py` because it is necessary for correct packet routing.
 
-### Detection
-For DNS reflection detection, check each packet going through the middlebox and out interface mb-eth1 (toward h2 & h3) to see if it is a DNS request. If it is, record a mapping from the request's identification number to the source IP of the request.
+### HTTP Proxies
 
-For each DNS response packet going through the middlebox and out interface mb-eth0 (toward h1 & h4), check whether there has been a request with the same identification number from the destination IP of the response. Keep track of the total number of unmatched responses sent to each host. If this number passes **200** for any host, mitigation should be started for that host (see "Mitigation" below).
+Ordinarily, HTTP is a client-server protocol. The client (usually your web
+browser) communicates directly with the server (the web server software).
+However, in some circumstances it may be useful to introduce an intermediate
+entity called a proxy. Conceptually, the proxy sits between the client and the
+server. In the simplest case, instead of sending requests directly to the
+server, the client sends all of its requests to the proxy. The proxy then opens
+a connection to the server, and passes on the client's request. The proxy
+receives the reply from the server, and then sends that reply back to the
+client. Notice that the proxy is essentially acting like both an HTTP client
+(to the remote server) and an HTTP server (to the initial client).
 
-There are 2 `TODO` sections in `mb.py`. The first is in the constructor `__init__()`.  This is where you should create any instance variables needed for the detection algorithm. These instance variables should start with the keyword `self`, (e.g. `self.id_to_host`). For more information on Python classes, see the documentation here: [A first look at classes](https://docs.python.org/2.7/tutorial/classes.html#a-first-look-at-classes)
+Why use a proxy? There are a few possible reasons:
 
-The second `TODO` is in the `handle_packet()` method. Here, you will need to update the instance variables in response to the contents of the current packet. The `pkt` argument is the current packet encoded in the Scapy packet format. The following example shows how to access the source and destination IP addresses of `pkt`:
+*   **Performance:** By saving a copy of the pages that it fetches, a proxy can
+    reduce the need to create connections to remote servers. This can reduce
+    the overall delay involved in retrieving a page, particularly if a server
+    is remote or under heavy load.
+*   **Content Filtering and Transformation:** While in the simplest case the
+    proxy merely fetches a resource without inspecting it, there is nothing
+    that says that a proxy is limited to blindly fetching and serving files.
+    The proxy can inspect the requested URL and selectively block access to
+    certain domains, reformat web pages (for instances, by stripping out images
+    to make a page easier to display on a handheld or other limited-resource
+    client), or perform other transformations and filtering.
+*   **Privacy:** Normally, web servers log all incoming requests for resources.
+    This information typically includes at least the IP address of the client,
+    the browser or other client program that they are using (called the
+    User-Agent), the date and time, and the requested file. If a client does
+    not wish to have this personally identifiable information recorded, routing
+    HTTP requests through a proxy is one solution. All requests coming from
+    clients using the same proxy appear to come from the IP address and
+    User-Agent of the proxy itself, rather than the individual clients. If a
+    number of clients use the same proxy (say, an entire business or
+    university), it becomes much harder to link a particular HTTP transaction
+    to a single computer or individual.
 
-```
-# check whether pkt is an IP packet
-if IP in pkt:
 
-  # get source IP addresses
-  src_ip = pkt[IP].src
+## Part A: HTTP Proxy
 
-  # get destionation IP addresses
-  dst_ip = pkt[IP].dst
+### Getting Started
+* On your host machine (laptop), go to the course directory.  ```bash $ cd
+  COS461-Public/assignments ```
 
-```
+* Now, pull the latest update from Github.  ```bash $ git pull ```
 
-The following example shows how check whether a DNS packet is a request or a response and how to get its ID:
+* Reprovision your VM as follows: ```bash $ vagrant reload --provision ```
 
-```
-# check whether pkt is a DNS packet
-if DNS in pkt:
+* SSH to the VM: ```bash $ vagrant ssh ```
 
-  # check if pkt is a DNS response or request
-  is_response = pkt[DNS].qr == 1
-  is_request = pkt[DNS].qr == 0
+* You will find the following starter code files in the /vagrant/assignment7
+  directory in the VM: ``` Makefile       http_proxy.go       http_proxy_DNS.go
+  test_scripts        README.md      src ```
 
-  # get ID of DNS request/response
-  dns_id = pkt[DNS].id
-```
+### Task Specification
 
-Scapy is a powerful packet manipulation tool that allows you to do more than just inspect packets (although that's all you will be using it for in this assignment).  For more information about Scapy, see the documentation here: https://www.secdev.org/projects/scapy/doc/usage.html
+Your task is to build a web proxy capable of accepting HTTP requests,
+forwarding requests to remote (origin) servers, and returning response data to
+a client.
 
-### Mitigation
+The proxy will be implemented in Go in the file `http_proxy.go`.   **You are
+allowed and encouraged to use the Go `net` and `net/http` libraries**,
+documentation here: https://golang.org/pkg/net/ &
+https://golang.org/pkg/net/http/. Understanding and properly using these
+libraries will make this assignment much simpler.  
 
-Once you detect that a host is being attacked, begin rate limiting DNS response traffic sent out of the middlebox to that specific host.
+HTTP is an application layer protocol that operates on top of TCP. This allows
+you to program at multiple levels of abstraction, because all of HTTP is simply
+part of the "content" of TCP packets.  The `net` library contains socket
+programming functions and types that operate at the transport layer (TCP). The
+`net` library functions are more general, requiring more code overall and
+manual creation of HTTP message strings, but they are more flexible and more
+clearly documented. The `http` library contains functions and types that
+operate at the HTTP application layer.  The `http` library functions are more
+specific to HTTP, potentially letting you use fewer lines of code, but they are
+less flexible (and the documentation is more difficult to understand). 
 
-Implement rate limiting by randomly dropping DNS response packets headed to the victim host with high probability `P`. Use the `random()` function to generate random numbers, documentation here: https://docs.python.org/2/library/random.html.  The value `P` is up to you.  You will be asked to justify the value you chose in the last part of the assignment.  Drop packets by returning from the  within the `handle_packet()` method before the `sendp()` call.  
+Our reference solution uses the `Request` type and associated functions from
+the `http` library for parsing and modifying HTTP requests, but uses the
+`Listen()`, `Accept()`, and `Dial()` functions from `net` (rather than the
+various server and client functions in `http`). This reference implementation
+is approximately 130 lines.  How you ultimately decide to combine the `net` and
+`http` libraries to implement your proxy is up to you. Your grade will not be
+affected by implementation choices that do not affect the behavior of your
+proxy.
 
-You should make sure you are only rate limiting attack traffic. Do not rate limit DNS responses to requests actually made by the victim host. Traffic to and from other hosts as well as other types of traffic to the victim host should not be rate limited either.
+Your proxy should compile without errors on the course VM using the provided
+`Makefile`.  Compilation should produce a binary called `http_proxy` that takes
+as its first argument a port to listen from. Don't use a hard-coded port
+number.
 
-**Note:** Although in this specific setup h1 is the victim, we may test your assignment using h4 as victim. Therefore, your detection and mitigation implementation should not assume a specific host to be victim. Moreover, you should not have h1 (or h4's) specific details (such as IP address) or the rates at which the traffic is generated hardcoded in your code.
+You shouldn't assume that your proxy will be running on a particular IP
+address, or that clients will be coming from a pre-determined IP address.
 
-## Part C: Run Simulation
+#### Getting Requests from Clients
 
-Run your implementation with the command
+Your proxy should listen on the port specified from the command line and wait
+for incoming client connections. See the linked Go sockets documentation from
+Assignment 1 for more on socket programming in Go.   Client requests should be
+handled concurrently, with a new
+[goroutine](https://tour.golang.org/concurrency/1) spawned to handle each
+request.
 
-```
-sudo python start_net.py
-```
+Once a client has connected, the proxy should read data from the client and
+then check for a properly-formatted HTTP request. Use the  `http` library to
+ensure that the proxy receives a request that contains a valid request line.
 
-This will create the network and run the detection/mitigation code described in the previous sections. Hosts h1 and h4 will also run the `test.py` script.  The script sniffs all the packets sent to the host on which the script is running, keeps track of the number of DNS responses and ping replies, and prints them to `h1_test.txt` or `h4_test.txt` every 5 seconds.
+Your proxy is only responsible for the GET method. All other request methods
+should elicit a well-formed HTTP response with status code 500 "Internal
+Error".  This Wikipedia article has a full list of valid HTTP status codes:
+https://en.wikipedia.org/wiki/List_of_HTTP_status_codes.  You probably won't
+need to return status 418 "I'm a teapot"...
 
-Allow the simulation to run for several minutes (approximately 5 min should be fine).  Exit the simulation with the `quit` command in the mininet CLI.
+#### Sending Requests to Servers
 
-If the simulation works, you will see that the `h1_ping.txt`, and  `h4_ping.txt` files have a record of successful pings and the `h1_test.txt` and `h4_test.txt` files have a record of DNS responses and pings.
+Once the proxy has parsed the URL in the client request, it can make a
+connection to the requested host (using the appropriate remote port, or the
+default of 80 if none is specified) and send the HTTP request for the
+appropriate resource. The proxy should always send the request in the relative
+URL + Host header format regardless of how the request was received from the
+client.  
 
-Finally, run
-```
-python plot_results.py
-```
-to plot DNS response counts and save the plot to `DNS_response_rates.png`. You will need to refer to this plot in Part D below.  
+For example, if the proxy accepts the following request from a client:
 
-**Debugging Tips:**
-1. To debug your code in `mb.py`, you can print informative messages to stdout using `print(message)`.  These messages will be automatically redirected to the `mb-log.txt` file.  Please remove these prints before submitting.  Stderr for `mb.py` will automatically print to `mb-err.txt`.
-2. Make sure you are checking whether a packet is a DNS packet before attempting to access its src/dst IP address or its DNS ID.
-3. Remember to run `./cleanup-mininet.sh` if your program crashes, mininet exits with an exception, or you get "Please shut down the controller which is running" errors.
-4. If you start getting strange errors related to creating threads, `logout` of vagrant, run `vagrant halt` and then `vagrant up` to reboot your VM.
+``` GET http://www.princeton.edu/ HTTP/1.1 ```
 
-## Part D: Analysis
-Answer the questions in the file `questions.txt`.  Put your and your partner's names and netids at the top of the file.
+It should send the following request to the remote server:
+
+``` GET / HTTP/1.1 Host: www.princeton.edu Connection: close (Additional client
+specified headers, if any...) ```
+
+Note that we always send HTTP/1.1 flags and a `Connection: close` header to the
+server, so that it will close the connection after its response is fully
+transmitted, as opposed to keeping open a persistent connection. So while you
+should pass the client headers you receive on to the server, you should make
+sure you replace any `Connection` header received from the client with one
+specifying `close`, as shown. To add new headers or modify existing ones, use
+the `http` library Request type.
+
+#### Returning Response to Clients
+
+After the response from the remote server is received, the proxy should send
+the response message as-is to the client via the appropriate socket. To be
+strict, the proxy would be required to ensure a `Connection: close` is present
+in the server's response to let the client decide if it should close its end of
+the connection after receiving the response. However, checking this is not
+required in this assignment because a well-behaving server would respond with a
+`Connection: close`  given that we ensure that the proxy sends the server a
+close token.
+
+
+#### Status Codes from Proxy to Client For any error caught by the proxy, the
+proxy should return the status 500 'Internal Error'. As stated above, any
+request method other than GET should cause your proxy to return status 500
+'Internal Error' rather than 501 'Not Implemented'. Likewise, for any invalid,
+incorrectly formed headers or requests, your proxy should return status 500
+'Internal Error' rather than 400 'Bad Request' to the client.
+
+Otherwise, your proxy should simply forward status replies from the remote
+server to the client. This means most 1xx, 2xx, 3xx, 4xx, and 5xx status
+replies should go directly from the remote server to the client through your
+proxy. (While you are debugging, make sure that 404 status replies from the
+remote server are not the result of poorly forwarded requests from your proxy.)
+
+
+### Testing Your Proxy
+
+Run your proxy with the following command:
+
+`./http_proxy <port> &`, where `port` is the port number that the proxy should
+listen on. As a basic test of functionality, try requesting a page using telnet
+(don't forget to press enter twice):
+
+``` telnet localhost <port> Trying 127.0.0.1...  Connected to
+localhost.localdomain (127.0.0.1).  Escape character is '^]'.  GET
+http://www.example.com/ HTTP/1.1 ```
+
+If your proxy is working correctly, the headers and HTML of example.com should
+be displayed on your terminal screen. Notice here that we request the absolute
+URL (`http://www.example.com/`) instead of just the relative URL (`/`). A good
+sanity check of proxy behavior would be to compare the HTTP response (headers
+and body) obtained via your proxy with the response from a direct telnet
+connection to the remote server. Additionally, try requesting a page using
+telnet concurrently from two different shells.
+
+
+Then try testing your proxy with the supplied `test_proxy.py`  script.  This
+will compare the result of fetching 3 pre-determined websites directly versus
+through your proxy: ``` python test_scripts/test_proxy.py http_proxy  <port
+(optional, will be random if omitted)> ```
+
+Once you have passed all 4 tests in `test_proxy.py`, try the
+`test_proxy_conc.py` script. This will test your proxy with different numbers
+of concurrent client connections.  ``` python test_scripts/test_proxy_conc.py
+http_proxy  <port (optional, will be random if omitted)> ```
+
+For a slightly more complex test, you can configure Firefox to use your proxy
+server as its web proxy as follows:
+
+1. Run your proxy on port 12000.
+2. On your host machine, open Firefox
+3.  Go to 'Preferences'. Select 'Advanced' and then select 'Network'.
+4.  Under 'Connection', select 'Settings...'.
+5.  Select 'Manual Proxy Configuration'. Remove the default 'No Proxy for:
+localhost 127.0.0.1.' 
+6. Under "HTTP Proxy" enter the hostname (127.0.0.1) and port (12000) where
+your proxy program is running.
+6.  Save your changes by selecting 'OK' in the connection tab and then select
+'Close' in the preferences tab.
+
+
+## Part B: Proxy Optimization by DNS Prefetching 
+
+DNS prefetching is a technique whereby a web proxy resolves domain names for
+links embedded in an HTTP response before a user clicks on any of the links.
+This improves page load time by bringing the DNS entries for those links into
+the cache of the DNS resolver closest to the proxy.   DNS prefetching relies on
+a simple prediction: If a user asks for a particular page, the chances are good
+that he or she will next request a page linked to from that page. 
+
+### Task Specification
+
+Your task is to add DNS prefetching to the proxy you implemented in Part A.
+First, make a copy of your proxy called `http_proxy_DNS.go`: ``` cp
+http_proxy.go http_proxy_DNS.go ``` You should implement DNS prefetching in
+this new file. **Leave the original proxy unedited**  because you will need to
+submit both. In the new copy, change the filename in the header to
+"http_proxy_DNS.go".
+
+In order to find the links in the response from remote server, you will need to
+parse the HTML content.  The `net/html` library contains functions for
+tokenizing html: https://godoc.org/golang.org/x/net/html.  Find all of the
+`href`attributes of the `<a>` tags in the HTML that start with "http".  Then
+issue DNS queries for each using the `LookupHost()` function in the `net`
+library.  Parsing HTML and sending DNS queries should happen in new goroutines
+so to not slow down the return of the response to the client. 
+
+Note that you don't need to do anything with the DNS responses.  Merely having
+sent them will have populated the cache of the DNS resolver. 
+
+As before, your DNS prefetching proxy should compile without errors on the
+course VM using the provided `Makefile`.  Compilation should produce a binary
+called `http_proxy_DNS` that takes as its first argument a port to listen from.
+Don't use a hard-coded port number. You shouldn't assume that your proxy will
+be running on a particular IP address, or that clients will be coming from a
+pre-determined IP address.
+
+### Testing Your DNS Prefetching Proxy
+
+Test your DNS prefetching proxy the same way as you tested your original proxy.
+When using the test scripts, just change the first command line argument: ```
+python test_scripts/test_proxy.py http_proxy_DNS  <port (optional, will be
+random if omitted)> python test_scripts/test_proxy_conc.py http_proxy_DNS
+<port (optional, will be random if omitted)> ``` You will not notice any
+speedup on these tests, because they do not access additional websites through
+links. 
+
+In addition, you can use Wireshark to verify that the proxy is performing DNS
+lookups correctly.
+
+Finally, try using your new `http_proxy_DNS` with Firefox as before. You will
+hopefully notice that it is faster to load pages accessed through links on the
+current page.  However, the magnitude of the speedup that you see depends on
+your local DNS resolver and the speed of your network connection, so don't be
+surprised if it is not noticeable. 
 
 ## Submission & Grading
-Submit your `mb.py`, `questions.txt`, and `DNS_response_rates.png` files to CS DropBox here: https://dropbox.cs.princeton.edu/COS461_S2019/Assignment-6-DNS-Reflection.
 
-We will run the simulation with your `mb.py` file to test your DNS reflection detection and mitigation implementation.
+You should submit your `http_proxy.go` and `http_proxy_DNS.go` files to the CS
+dropbox here:
+https://dropbox.cs.princeton.edu/COS461_S2019/Assignment-7-HTTP-Proxy.
+
+**Put your and your partner's names and netids in comments at the top of both
+submitted files.**
+
+We will test your proxies by running the `test_proxy.py` and
+`test_proxy_conc.py` scripts and by performing a few additional tests with
+different websites and numbers of concurrent clients. 

@@ -1,8 +1,8 @@
-# Assignment 3: TCP Congestion Control and Bufferbloat
+# Assignment 3: Passive Network Measurement
 
-### Due March 18th, 5:00pm
+### Due March 26, 6:00pm
 
-You should work with a partner on this assignment.
+You may work with a partner on this assignment.
 
 ## Getting Started
 
@@ -22,26 +22,11 @@ Reprovision your VM to install necessary packages for this assignment.
 $ vagrant reload --provision
 ```
 
-After shelling into your VM, uninstall existing versions of Jupyter and matplotlib.
-
-```
-$ sudo pip uninstall matplotlib
-$ sudo pip uninstall jupyter
-```
-
-Re-install Jupyter and matplotlib with the --user flag.
-
-```
-$ pip install --user matplotlib
-$ pip install --user jupyter
-```
-
-
 On the VM, run the command `sudo ~/.local/bin/jupyter-notebook &`. This will start a new Jupyter notebook server in the background. Even though it is running in the background, it will sometimes print informative messages to the terminal. You can press Enter each time you get a message to get the shell prompt back. To shut down the notebook, run `fg` then press Control-C twice (once to get the confirmation message, another time to skip confirmation).
 
 While the notebook is running, on your host machine, open up your browser and type `localhost:8888` in the address bar. This should open to the Jupyter notebook file selection window.  Juypter notebook is actually running on port 8888 on your vagrant VM, but you can access it through your host machine browser because the port is being forwarded between the VM and the host machine.  
 
-In the file selection window, enter the `assignment3` directory and then open `Assignment3_Notebook.ipynb`. This will open a notebook with the instructions for the rest of the assignment.  Work through this notebook from top to bottom and complete the sections marked "TODO."
+In the file selection window, enter the `assignment4` directory and then open `Assignment4_Notebook.ipynb`. This will open a notebook with the instructions for the rest of the assignment.  Work through this notebook from top to bottom and complete the sections marked "TODO."
 
 **Remember to "Save and Checkpoint" (from the "File" menu) before you leave the notebook or close your tab.**  
 
@@ -55,7 +40,4 @@ The "Help" menu contains many additional resources about Jupyter notebooks (incl
 
 ## Submission
 
-Submit your completed `Assignment3_Notebook.ipynb` file on CS Dropbox here: https://dropbox.cs.princeton.edu/COS461_S2019/Assignment-3-TCP-Congestion-Control-and-Bufferbloat. Submit only once for both partners. Remember to put your names and netids in the marked location at the top of the file. Also submit a `partners.txt` file that contains only your netIDs, one per line.
-
-#### Acknowledgement
-This assignment is modeled after a [similar assignment](http://web.stanford.edu/class/cs244/pa1.html) at Stanford University.
+Submit your completed `Assignment4_Notebook.ipynb` file on CS Dropbox here: https://dropbox.cs.princeton.edu/COS461_S2019/Assignment-4-Passive-Network-Measurement. Submit only once for both partners. Remember to put your names and netids in the marked location at the top of the file.

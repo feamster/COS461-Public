@@ -1,6 +1,6 @@
-# Assignment 4: Passive Network Measurement
+# Assignment 4: Network Security - Portscan
 
-### Due April 1st, 5:00pm
+### Due April 9, 6:00pm
 
 You may work with a partner on this assignment.
 
@@ -26,7 +26,7 @@ On the VM, run the command `sudo ~/.local/bin/jupyter-notebook &`. This will sta
 
 While the notebook is running, on your host machine, open up your browser and type `localhost:8888` in the address bar. This should open to the Jupyter notebook file selection window.  Juypter notebook is actually running on port 8888 on your vagrant VM, but you can access it through your host machine browser because the port is being forwarded between the VM and the host machine.  
 
-In the file selection window, enter the `assignment4` directory and then open `Assignment4_Notebook.ipynb`. This will open a notebook with the instructions for the rest of the assignment.  Work through this notebook from top to bottom and complete the sections marked "TODO."
+In the file selection window, enter the `assignment5` directory and then open `Assignment5_Notebook.ipynb`. This will open a notebook with the instructions for the rest of the assignment.  Work through this notebook from top to bottom and complete the sections marked "TODO."
 
 **Remember to "Save and Checkpoint" (from the "File" menu) before you leave the notebook or close your tab.**  
 
@@ -40,4 +40,4 @@ The "Help" menu contains many additional resources about Jupyter notebooks (incl
 
 ## Submission
 
-Submit your completed `Assignment4_Notebook.ipynb` file on CS Dropbox here: https://dropbox.cs.princeton.edu/COS461_S2019/Assignment-4-Passive-Network-Measurement. Submit only once for both partners. Remember to put your names and netids in the marked location at the top of the file.
+Submit your completed `Assignment5_Notebook.ipynb` file on CS Dropbox here: https://dropbox.cs.princeton.edu/COS461_S2019/Assignment-5-Port-Scan. Submit only once for both partners. Remember to put your names and netids in the marked location at the top of the file.
