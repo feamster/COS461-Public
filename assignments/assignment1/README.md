@@ -1,6 +1,6 @@
 # Assignment 1: Virtual Machine Setup & Socket Programming
 
-### Due Monday February 18 at 5:00 pm
+### Due Monday February 20 at 6:00 pm
 
 Welcome to COS 461: Computer Networks! Through this and the following
 assignments, you will gain hands-on experience with real-world network
@@ -23,14 +23,18 @@ code.
 
 Let's get started!
 
-## Part A: Set Up Virtual Machine The first part of this assignment is to set
-up the virtual machine (VM) you will use for the rest of the course. This will
-make it easy to install all dependencies for the programming assignments,
-saving you the tedium of installing individual packages and ensuring your
-development environment is correct.
+## Part A: Set Up Virtual Machine
 
-### Step 1: Install Vagrant Vagrant is a tool for automatically configuring a
-VM using instructions given in a single "Vagrantfile."
+The first part of this assignment is to set up the virtual machine (VM) you
+will use for the rest of the course. This will make it easy to install all
+dependencies for the programming assignments, saving you the tedium of
+installing individual packages and ensuring your development environment is
+correct.
+
+### Step 1: Install Vagrant
+
+Vagrant is a tool for automatically configuring a VM using instructions given
+in a single "Vagrantfile."
 
 **macOS & Windows:** You need to install Vagrant using the correct download
 link for your computer here: https://www.vagrantup.com/downloads.html.
@@ -44,7 +48,9 @@ command `sudo apt-get update`. To install Vagrant, you must have the "Universe"
 repository on your computer; run `sudo apt-add-repository universe` to add it.
 Finally, run `sudo apt-get install vagrant` to install vagrant.
 
-### Step 2: Install VirtualBox VirtualBox is a VM provider (hypervisor).
+### Step 2: Install VirtualBox
+
+VirtualBox is a VM provider (hypervisor).
 
 **macOS & Windows:** You need to install VirtualBox using the correct download
 link for your computer here: https://www.virtualbox.org/wiki/Downloads. The
@@ -58,8 +64,9 @@ uncheck the "Start Oracle VirtualBox 5.x.x after installation" checkbox.
 **Note:** This will also install the VirtualBox application on your computer,
 but you should never need to run it, though it may be helpful (see Step 6).
 
-### Step 3: Install Git (and SSH-capable terminal on Windows) Git is a
-distributed version control system.
+### Step 3: Install Git (and SSH-capable terminal on Windows)
+
+Git is a distributed version control system.
 
 **macOS & Windows:** You need to install Git using the correct download link
 for your computer here: https://git-scm.com/downloads.
@@ -83,8 +90,9 @@ somewhere else will not work, however.
 
 **Linux:** `sudo apt-get install git`.
 
-### Step 4: Install X Server You will need an X Server to input commands to the
-virtual machine.
+### Step 4: Install X Server
+
+You will need an X Server to input commands to the virtual machine.
 
 **macOS:** Install [XQuartz](https://www.xquartz.org/). You will need to log
 out and log back in to complete the installation (as mentioned by the prompt at
@@ -96,20 +104,22 @@ Use default options and uncheck "Launch Xming" at the end.
 
 **Linux:** The X server is pre-installed!
 
-### Step 5: Clone course Git repository Open your terminal (use the one
-mentioned in step 3 if using Windows) and `cd` to wherever you want to keep
-files for this course on your computer.  
+### Step 5: Clone course Git repository
+
+Open your terminal (use the one mentioned in step 3 if using Windows) and `cd`
+to wherever you want to keep files for this course on your computer.  
 
 Run `git clone https://github.com/PrincetonUniversity/COS461-Public` to
 download the course files from GitHub.
 
 `cd COS461-Public/assignments` to enter the course assignment directory.
 
-### Step 6: Provision virtual machine using Vagrant From the `assignments`
-directory you just entered, run the command  `vagrant up` to start the VM and
-provision it according to the Vagrantfile. You will likely have to wait several
-minutes. You may see warnings/errors in red, such as "default: stdin: is not a
-tty", but you shouldn't have worry about them.
+### Step 6: Provision virtual machine using Vagrant
+
+From the `assignments` directory you just entered, run the command  `vagrant
+up` to start the VM and provision it according to the Vagrantfile. You will
+likely have to wait several minutes. You may see warnings/errors in red, such
+as "default: stdin: is not a tty", but you shouldn't have worry about them.
 
 **Note 1**: The following commands will allow you to stop the VM at any point
 (such as when you are done working on an assignment for the day):
@@ -248,7 +258,9 @@ used for automated testing.
 The following sections provide details for the client and server programs in
 each language.
 
-### C The classic "Beej's Guide to Network Programming" is located here:
+### C
+
+The classic "Beej's Guide to Network Programming" is located here:
 https://beej.us/guide/bgnet/html/single/bgnet.html.  The [system call
 section](https://beej.us/guide/bgnet/html/single/bgnet.html#syscalls) and
 [client/server example
@@ -272,7 +284,9 @@ provided Makefile. The server should be run as `./server-c [port] > [output
 file]`. The client should be run as `./client-c [server IP] [server port] <
 [message file]`. See "Testing" for more details.
 
-### Python The documentation for Python socket programming is located here:
+### Python
+
+The documentation for Python socket programming is located here:
 https://docs.python.org/2/library/socket.html.  The first few paragraphs at the
 top, the [section on socket
 objects](https://docs.python.org/2/library/socket.html#socket-objects) and the
@@ -292,7 +306,9 @@ The server should be run as `python server-python.py [port] > [output file]`.
 The client should be run as `python client-python.py [server IP] [server port]
 < [message file]`. See "Testing" for more details.
 
-### Go The documentation for Go socket programming is located here:
+### Go
+
+The documentation for Go socket programming is located here:
 https://golang.org/pkg/net/.  The overview at the top and the  section on the
 [Conn type](https://golang.org/pkg/net/#Conn) will be most relevant.
 
@@ -347,8 +363,10 @@ tests 1 and 4.
 Make sure to build your C client/server pair before running
 `test_client_server.sh`.
 
-### Debugging hints Here are some debugging tips. If you are still having
-trouble, ask a question on Piazza or see an instructor during office hours.
+### Debugging hints
+
+Here are some debugging tips. If you are still having trouble, ask a question
+on Piazza or see an instructor during office hours.
 
 * There are defined buffer size and queue length constants in the scaffolding
   code. Use them. If they are not defined in a particular file, you don't need
@@ -414,8 +432,10 @@ trouble, ask a question on Piazza or see an instructor during office hours.
   in this assignment. So no need to use `fork()`!
 
 
-### Submission and grading Submit the assignment by uploading your modified
-client and server files to CS DropBox here: [Assignment 1 - Socket
+### Submission and grading
+
+Submit the assignment by uploading your modified client and server files to CS
+TigerFile here: [Assignment 1 - Socket
 Programming](https://tigerfile.cs.princeton.edu/COS461_S2020/assignment1).
 
 We will grade your assignments by running the `test_client_server.sh` script
@@ -423,8 +443,8 @@ and additional tests with large messages, multiple simultaneous clients, etc.
 Double check the specifications above and perform your own tests before
 submitting.
 
-Code that does not compile is graded harshly; if you want partial credit on
-code that doesn't compile, comment it out and make sure your file compiles!
+Code that does not compile is graded harshly; if you want partial credits,
+*make sure your file compiles!*
 
 Remember that, in addition to your C client/server pair, you should submit
 another client/server in **either** Python or Go, but not both! If you submit
