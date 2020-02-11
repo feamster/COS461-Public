@@ -9,7 +9,9 @@ know one of the most popular application protocols on the Internet -- the
 Hypertext Transfer Protocol (HTTP). When you're done with the assignment, you
 should be able to configure Firefox to use your  proxy implementation.
 
-You may work with a partner on this assignment.
+This is not a group assignment. You are not allowed to copy or look at code
+from other students. However, you are welcome to discuss the assignments with
+other students without sharing code.
 
 ## Introduction: The Hypertext Transfer Protocol
 
@@ -157,11 +159,12 @@ $ vagrant reload --provision
 $ vagrant ssh
 ```
 
-* You will find the following starter code files in the `/vagrant/assignment7`
+* You will find the following starter code files in the `/vagrant/assignment6`
   directory in the VM:
-  ```
-  Makefile       http_proxy.go       http_proxy_DNS.go       test_scripts        README.md      src
-  ```
+
+```
+Makefile       http_proxy.go       http_proxy_DNS.go       test_scripts        README.md      src
+```
 
 ### Task Specification
 
@@ -400,11 +403,10 @@ surprised if it is not noticeable.
 ## Submission & Grading
 
 You should submit your `http_proxy.go` and `http_proxy_DNS.go` files to the CS
-dropbox here:
-https://dropbox.cs.princeton.edu/COS461_S2019/Assignment-7-HTTP-Proxy.
+TigerFile here:
+https://tigerfile.cs.princeton.edu/COS461_S2020/assignment_6
 
-**Put your and your partner's names and netids in comments at the top of both
-submitted files.**
+**Put your names and netids in comments at the top of both submitted files.**
 
 We will test your proxies by running the `test_proxy.py` and
 `test_proxy_conc.py` scripts and by performing a few additional tests with
