@@ -259,10 +259,10 @@ each language.
 ### C
 
 The classic "Beej's Guide to Network Programming" is located here:
-https://beej.us/guide/bgnet/html/single/bgnet.html.  The [system call
-section](https://beej.us/guide/bgnet/html/single/bgnet.html#syscalls) and
+https://beej.us/guide/bgnet/html/.  The [system call
+section](https://beej.us/guide/bgnet/html/#system-calls-or-bust) and
 [client/server example
-section](https://beej.us/guide/bgnet/html/single/bgnet.html#clientserver) will
+section](https://beej.us/guide/bgnet/html/#client-server-background) will
 be most relevant. The man pages are also useful for looking up individual
 functions (e.g. `man socket`).
 
