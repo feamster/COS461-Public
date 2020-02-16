@@ -171,8 +171,8 @@ if DNS in pkt:
 
 Scapy is a powerful packet manipulation tool that allows you to do more than
 just inspect packets (although that's all you will be using it for in this
-assignment).  For more information about Scapy, see the documentation here:
-https://www.secdev.org/projects/scapy/doc/usage.html
+assignment).  For more information about Scapy, see the documentation on their
+website: https://scapy.net/
 
 ### Mitigation
 
