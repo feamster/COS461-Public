@@ -242,7 +242,7 @@ will need to refer to this plot in Part D below.
 
 ## Part D: Analysis
 
-Answer the questions in the file `questions.txt`. Put your names and netids at
+Answer the questions in the file `questions.txt`. Put your name and netid at
 the top of the file.
 
 ## Submission & Grading
