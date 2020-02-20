@@ -85,7 +85,7 @@ tutorials).
 Submit your completed `Assignment2_Notebook.ipynb` file on TigerFile here:
 https://tigerfile.cs.princeton.edu/COS461_S2020/assignment_2
 
-Remember to put your names and netids in the marked location at the top of the
+Remember to put your name and netid in the marked location at the top of the
 file.
 #### Acknowledgement
 This assignment is modeled after a [similar assignment](http://web.stanford.edu/class/cs244/pa1.html) at Stanford University.

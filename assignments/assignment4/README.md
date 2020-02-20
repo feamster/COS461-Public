@@ -69,5 +69,5 @@ tutorials).
 Submit your completed `Assignment4_Notebook.ipynb` file on TigerFile here:
 https://tigerfile.cs.princeton.edu/COS461_S2020/assignment_4
 
-Remember to put your names and netids in the marked location at the top of the
+Remember to put your name and netid in the marked location at the top of the
 file.
