@@ -15,7 +15,7 @@ Vagrant.configure(2) do |config|
   config.vm.hostname = "cos461"
   config.ssh.forward_x11 = true
   config.vm.network "forwarded_port", guest: 8888, host: 8888
-  # Assignment 7
+  # Assignment 6
   config.vm.network "forwarded_port", guest: 12000, host: 12000
 
   vagrant_root = File.dirname(__FILE__)
@@ -51,26 +51,26 @@ Vagrant.configure(2) do |config|
      printf "Using dos2unix to convert files to Unix format if necessary..."
      find /vagrant -name "*" -type f | xargs dos2unix -q
 
-     # Assignment 2
-     sudo apt-get install -y python-tk
+     # Previous Assignment 2 (2019 and before)
+     #sudo apt-get install -y python-tk
 
-     # Assignment 3
+     # Assignment 2
      sudo pip install nbconvert
      sudo apt-get install -y mininet
      sudo apt-get install -y python-numpy
      sudo apt-get install -y python-matplotlib
 
-     # Assignment 4
+     # Assignment 3
      sudo apt-get install -y whois
      sudo pip install ipaddress
 
-     # Assignment 6
+     # Assignment 5
      sudo pip install scapy
      sudo apt-get install -y python-scipy
      sudo apt-get install -y bind9
      sudo cp /vagrant/assignment6/bind/* /etc/bind
 
-     # Assignment 7
+     # Assignment 6
      sudo apt-get install -y apache2-utils
      echo "export GOPATH=/vagrant/assignment7" >> /home/vagrant/.profile
 
@@ -84,7 +84,7 @@ Vagrant.configure(2) do |config|
   ## Provisioning to do on each "vagrant up"
   config.vm.provision "shell", run: "always", inline: <<-SHELL
     sudo tzupdate 2> /dev/null
-    # Assignment 3
+    # Assignment 2
     sudo modprobe tcp_probe port=5001 full=1
   SHELL
 
