@@ -38,8 +38,8 @@ notebook file selection window.  Juypter notebook is actually running on port
 browser because the port is being forwarded between the VM and the host
 machine.  
 
-In the file selection window, enter the `assignment5` directory and then open
-`Assignment5_Notebook.ipynb`. This will open a notebook with the instructions
+In the file selection window, enter the `assignment4` directory and then open
+`Assignment4_Notebook.ipynb`. This will open a notebook with the instructions
 for the rest of the assignment.  Work through this notebook from top to bottom
 and complete the sections marked "TODO."
 
