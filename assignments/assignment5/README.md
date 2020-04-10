@@ -8,9 +8,8 @@ In this assignment, you will learn a technique to detect and mitigate DNS
 reflection attacks and will apply this techniques on an emulated mininet
 network.
 
-This is not a group assignment. You are not allowed to copy or look at code
-from other students. However, you are welcome to discuss the assignments with
-other students without sharing code.
+You may work in groups of 2-3. Please specify your teammates' name and NETID
+at the beginning of `mb.py` and `questions.txt`.
 
 ## Background
 
