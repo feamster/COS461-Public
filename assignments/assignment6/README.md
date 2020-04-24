@@ -280,6 +280,11 @@ remote server are not the result of poorly forwarded requests from your proxy.)
 
 ### Testing Your Proxy
 
+Build your executables:
+
+`make clean`
+`make`
+
 Run your proxy with the following command:
 
 `./http_proxy <port> &`, where `port` is the port number that the proxy should
