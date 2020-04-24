@@ -282,8 +282,7 @@ remote server are not the result of poorly forwarded requests from your proxy.)
 
 Build your executables:
 
-`make clean`
-`make`
+`go build http_proxy.go`
 
 Run your proxy with the following command:
 
@@ -378,6 +377,10 @@ be running on a particular IP address, or that clients will be coming from a
 pre-determined IP address.
 
 ### Testing Your DNS Prefetching Proxy
+
+Build your executables:
+
+`go build http_proxy_DNS.go`
 
 Test your DNS prefetching proxy the same way as you tested your original proxy.
 When using the test scripts, just change the first command line argument:
