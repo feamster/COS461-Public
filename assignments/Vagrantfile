@@ -72,7 +72,7 @@ Vagrant.configure(2) do |config|
 
      # Assignment 6
      sudo apt-get install -y apache2-utils
-     echo "export GOPATH=/vagrant/assignment7" >> /home/vagrant/.profile
+     echo "export GOPATH=/vagrant/assignment6" >> /home/vagrant/.profile
 
      # Start in /vagrant instead of /home/vagrant
      if ! grep -Fxq "cd /vagrant" /home/vagrant/.bashrc
