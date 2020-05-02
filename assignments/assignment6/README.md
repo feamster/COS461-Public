@@ -313,7 +313,7 @@ through your proxy:
 python test_scripts/test_proxy.py http_proxy  <port (optional, will be random if omitted)>
 ```
 
-Once you have passed all 4 tests in `test_proxy.py`, try the
+Once you have passed all tests in `test_proxy.py`, try the
 `test_proxy_conc.py` script. This will test your proxy with different numbers
 of concurrent client connections.
 
