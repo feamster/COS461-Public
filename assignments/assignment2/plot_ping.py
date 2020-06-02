@@ -34,7 +34,7 @@ def plot_ping_rtt(f, freq=10):
     ax.xaxis.set_major_locator(MaxNLocator(4))
 
     plt.ylabel("RTT (ms)")
-    plt.xlabel("Ping #")
+    plt.xlabel("time (seconds)")
     plt.grid(True)
     plt.title("{}: RTT from pings".format(f), fontsize=16)
 
