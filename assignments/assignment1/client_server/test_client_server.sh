@@ -9,14 +9,22 @@
 
 # Check correct number of arguments
 if [[ $# -ne 2 ]]; then
-  printf "USAGE: $0 [python|go] [server port]\n"
+  printf "USAGE: $0 [python|python2|go] [server port]\n"
   exit
+fi
+
+#Handle python 2
+if [[ "$1" == "python2" ]]; then
+    PYTHON_CALL="python2"
+    LANGUAGE="python"
+else
+    PYTHON_CALL="python3"
+    LANGUAGE=$1
 fi
 
 WORKSPACE=/vagrant/assignment1/.workspace
 numCorrect=0
 TESTS_PER_IMPL=5 # REMEBER TO UPDATE THIS IF NUMBER CHANGES!!!
-LANGUAGE=$1
 PORT=$2
 SKIP_MESSAGE="One or both programs missing. Skipping. \n\n"
 testNum=1
@@ -184,7 +192,7 @@ if [[ $LANGUAGE == "python" ]]; then
   printf "================================================================\n" 
 
   if [[ -f $SPC && -f $SPS ]]; then
-    all-tests "python $SPC" "python $SPS" $PORT
+    all-tests "$PYTHON_CALL $SPC" "$PYTHON_CALL $SPS" $PORT
   else
     printf "\n$SKIP_MESSAGE"
     ((testNum+=$TESTS_PER_IMPL))
@@ -195,7 +203,7 @@ if [[ $LANGUAGE == "python" ]]; then
   printf "================================================================\n" 
 
   if [[ -f $SCC && -f $SPS ]]; then
-    all-tests $SCC "python $SPS" $PORT
+    all-tests $SCC "$PYTHON_CALL $SPS" $PORT
   else
     printf "\n$SKIP_MESSAGE"
     ((testNum+=$TESTS_PER_IMPL))
@@ -206,7 +214,7 @@ if [[ $LANGUAGE == "python" ]]; then
   printf "================================================================\n" 
 
   if [[ -f $SPC && -f $SCS ]]; then
-    all-tests "python $SPC" $SCS $PORT
+    all-tests "$PYTHON_CALL $SPC" $SCS $PORT
   else
     printf "\n$SKIP_MESSAGE"
     ((testNum+=$TESTS_PER_IMPL))
