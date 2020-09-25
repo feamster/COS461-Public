@@ -18,12 +18,6 @@ $ cd COS461-Public/assignments
 $ git pull
 ```
 
-Reprovision your VM to install necessary packages for this assignment.
-
-```
-$ vagrant reload --provision
-```
-
 After shelling into your VM, uninstall existing versions of Jupyter and
 matplotlib.
 
