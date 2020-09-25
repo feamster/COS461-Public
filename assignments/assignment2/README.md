@@ -18,6 +18,15 @@ $ cd COS461-Public/assignments
 $ git pull
 ```
 
+There has been a problem with "vagrant reload --provision" for the latest vagrant version.
+Please remove existing vagrant and reinstall Vagrant with the correct version (vagrant_2.2.7) from https://releases.hashicorp.com/vagrant/
+
+It is not necessary to reprovision your VM, but with the vagrant_2.2.7, it will no longer cause an error on "remote connection disconnect".  
+If necessary, you may reprovision your VM to install packages for this assignment.
+```
+$ vagrant reload --provision
+
+```
 After shelling into your VM, uninstall existing versions of Jupyter and
 matplotlib.
 
