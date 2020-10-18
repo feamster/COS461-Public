@@ -1,6 +1,6 @@
 # Assignment 4: Network Security - Portscan
 
-### Due April 9, 6:00pm
+### Due November 4, 6:00pm
 
 This is not a group assignment. You are not allowed to copy or look at code
 from other students. However, you are welcome to discuss the assignments with
