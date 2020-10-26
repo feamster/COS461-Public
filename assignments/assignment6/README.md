@@ -1,6 +1,6 @@
 # Assignment 6: HTTP Proxy
 
-### Due May 12, 5:00pm
+### Due May November 18, 6:00pm
 
 In this assignment, you will implement a web proxy that passes requests and
 data between multiple web clients and web servers. The proxy should support
@@ -403,7 +403,7 @@ surprised if it is not noticeable.
 
 You should submit your `http_proxy.go` and `http_proxy_DNS.go` files to the CS
 TigerFile here:
-https://tigerfile.cs.princeton.edu/COS461_S2020/assignment_6
+https://tigerfile.cs.princeton.edu/COS461_F2020/Programming_Assignment_5
 
 **Put your name and netid in comments at the top of both submitted files.**
 
