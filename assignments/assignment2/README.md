@@ -1,6 +1,6 @@
 # Assignment 2: TCP Congestion Control and Bufferbloat
 
-### Due March 5, 6:00pm
+### Due October 2 at 11:59 pm EST
 
 This is not a group assignment. You are not allowed to copy or look at code
 from other students. However, you are welcome to discuss the assignments with
@@ -18,12 +18,15 @@ $ cd COS461-Public/assignments
 $ git pull
 ```
 
-Reprovision your VM to install necessary packages for this assignment.
+There has been a problem with "vagrant reload --provision" for the latest vagrant version.
+Please remove existing vagrant and reinstall Vagrant with the correct version (vagrant_2.2.7) from https://releases.hashicorp.com/vagrant/
 
+It is not necessary to reprovision your VM, but with the vagrant_2.2.7, it will no longer cause an error on "remote connection disconnect".  
+If necessary, you may reprovision your VM to install packages for this assignment.
 ```
 $ vagrant reload --provision
-```
 
+```
 After shelling into your VM, uninstall existing versions of Jupyter and
 matplotlib.
 
@@ -83,7 +86,7 @@ tutorials).
 ## Submission
 
 Submit your completed `Assignment2_Notebook.ipynb` file on TigerFile here:
-https://tigerfile.cs.princeton.edu/COS461_S2020/assignment_2
+https://tigerfile.cs.princeton.edu/COS461_F2020/Programming_Assignment_2
 
 Remember to put your name and netid in the marked location at the top of the
 file.
