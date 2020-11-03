@@ -1,6 +1,6 @@
-# Assignment 6: HTTP Proxy
+# Assignment 5: HTTP Proxy
 
-### Due May November 18, 6:00pm
+### Due November 18, 6:00pm
 
 In this assignment, you will implement a web proxy that passes requests and
 data between multiple web clients and web servers. The proxy should support
