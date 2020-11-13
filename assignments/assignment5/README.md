@@ -1,6 +1,6 @@
-# Assignment 6: HTTP Proxy
+# Assignment 5: HTTP Proxy
 
-### Due May November 18, 6:00pm
+### Due November 18, 6:00pm
 
 In this assignment, you will implement a web proxy that passes requests and
 data between multiple web clients and web servers. The proxy should support
@@ -9,7 +9,7 @@ know one of the most popular application protocols on the Internet -- the
 Hypertext Transfer Protocol (HTTP). When you're done with the assignment, you
 should be able to configure Firefox to use your  proxy implementation.
 
-You may work in groups of 2-3. Please specify your teammates' name and NETID at the beginning of http_proxy.go and http_proxy_DNS.go.
+You may work in groups of 1-2. Please specify your teammates' name and NETID at the beginning of http_proxy.go and http_proxy_DNS.go.
 
 ## Introduction: The Hypertext Transfer Protocol
 
