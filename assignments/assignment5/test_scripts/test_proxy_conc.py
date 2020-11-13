@@ -200,7 +200,7 @@ class ThreadPoolThread(threading.Thread):
 # produce unexpected results, including the abnormal termination
 # of the testing script.
 #
-pub_urls = ['http://example.com/', 'http://sns.cs.princeton.edu/projects/',
+pub_urls = ['http://example.com/', 'http://sns.princeton.edu/projects/',
             'http://randomwalker.info/'];
 #           'http://www.scs.stanford.edu/',];
 
