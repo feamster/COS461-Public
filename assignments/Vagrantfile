@@ -9,7 +9,7 @@
 Vagrant.configure(2) do |config|
 
   # 64 bit Ubuntu Vagrant Box
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/focal64"
 
   ## Configure hostname and port forwarding
   config.vm.hostname = "cos461"
@@ -65,14 +65,8 @@ Vagrant.configure(2) do |config|
      sudo pip install ipaddress
 
      # Assignment 5
-     sudo pip install scapy
-     sudo apt-get install -y python-scipy
-     sudo apt-get install -y bind9
-     sudo cp /vagrant/assignment6/bind/* /etc/bind
-
-     # Assignment 6
      sudo apt-get install -y apache2-utils
-     echo "export GOPATH=/vagrant/assignment6" >> /home/vagrant/.profile
+     echo "export GOPATH=/vagrant/assignment5" >> /home/vagrant/.profile
 
      # Start in /vagrant instead of /home/vagrant
      if ! grep -Fxq "cd /vagrant" /home/vagrant/.bashrc
