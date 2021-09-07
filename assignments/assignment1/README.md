@@ -1,6 +1,6 @@
 # Assignment 1: Virtual Machine Setup & Socket Programming
 
-### Due Thursday September 18 at 11:59 pm EST
+### Due Friday September 24 at 11:59 pm EST
 
 Welcome to COS 461: Computer Networks! Through this and the following
 assignments, you will gain hands-on experience with real-world network
@@ -15,7 +15,7 @@ prevent them.
 The programming assignments are designed to be challenging but manageable in
 the time allotted. If you have questions, want to suggest clarifications, or
 are struggling with any of the assignments this semester, please come to office
-hours, ask questions on Piazza, or talk to an instructor before or after class.
+hours, ask questions on Ed, or talk to an instructor before or after class.
 
 This is not a group assignment. **You are not allowed to copy or look at code
 from other students.** However, you are welcome to discuss the assignments with
@@ -54,12 +54,14 @@ VirtualBox is a VM provider (hypervisor).
 
 **macOS & Windows:** You need to install VirtualBox using the correct download
 link for your computer here: https://www.virtualbox.org/wiki/Downloads. The
-links are under the heading "VirtualBox 5.x.x platform packages."
+links are under the heading "VirtualBox 6.x.x platform packages."
 
 **Windows only:** Use all the default installation settings, but you can
-uncheck the "Start Oracle VirtualBox 5.x.x after installation" checkbox.
+uncheck the "Start Oracle VirtualBox 6.x.x after installation" checkbox.
 
-**Linux:** Run the command `sudo apt-get install virtualbox`.
+**Linux:** Run the command `sudo apt-get install virtualbox`. If `virtualbox` is 
+not already added to your package repository, please follow the instructions 
+here: https://www.virtualbox.org/wiki/Linux_Downloads
 
 **Note:** This will also install the VirtualBox application on your computer,
 but you should never need to run it, though it may be helpful (see Step 6).
@@ -169,10 +171,10 @@ Given that you ran `git pull` from Windows, git detects your operating system
 and adds carriage returns to files when downloading. This can lead to parsing
 problems within the VM, which runs Ubuntu (Unix). Fortunately, this only seems
 to affect the shell scripts (\*.sh files) we wrote for testing. The
-`Vagrantfile` is set to automically convert all files back to Unix format, so
+`Vagrantfile` is set to automatically convert all files back to Unix format, so
 **you shouldn't have to worry about this**. **However**, if you want to
 write/edit shell scripts to help yourself with testing, or if you encounter
-this problem with some other type of file, use the preinstalled program
+this problem with some other type of file, use the pre-installed program
 `dos2unix`. Run `dos2unix [file]` to convert it to Unix format (before
 editing/running in VM), and run `unix2dos [file]` to convert it to DOS format
 (before editing on Windows). A good hint that you need to do this when running
@@ -240,7 +242,7 @@ to make sure your implementation fulfills them:
 
 Do all building and testing on the Vagrant VM. You may either write your code
 on the Vagrant VM (both Emacs and Vim text editors are pre-installed) or
-directly on your OS (allowing you to use any editor you ahev installed). After
+directly on your OS (allowing you to use any editor you have installed). After
 running `vagrant ssh` from your terminal, run `cd /vagrant` to get to the
 course directory.
 
@@ -343,7 +345,7 @@ etc.). The messages are the following:
 0. A long, randomly generated alphanumeric message
 0. A long, randomly generated binary message
 0. Several short messages sent sequentially from separate clients to one server
-0. Several long, random alphaumeric messages sent concurrently from separate
+0. Several long, random alphanumeric messages sent concurrently from separate
 clients to one server
 
 Run the script as
@@ -425,7 +427,7 @@ on Piazza or see an instructor during office hours.
   guaranteed to be delivered.
 * **Should the client wait to receive a reply from the server?** No, in this
   assignment it should exit immediately after sending all the data.
-* **Should the server handle client connections concurrently (in seperate
+* **Should the server handle client connections concurrently (in separate
   processes)?** No, as stated in the client specification, this is not required
   in this assignment. So no need to use `fork()`!
 
