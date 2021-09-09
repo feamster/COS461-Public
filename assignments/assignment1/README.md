@@ -58,7 +58,8 @@ links are under the heading "VirtualBox 6.x.x platform packages."
 
 **For macOS Big Sur:** After installation, you need to go to 
 `System Preferences  > Security & Privacy` 
-and allow system software updates from Oracle. Then, restart your mac
+and allow system software updates from Oracle (there might be a prompt about 
+this during installation). Then, restart your mac.
 
 **Windows only:** Use all the default installation settings, but you can
 uncheck the "Start Oracle VirtualBox 6.x.x after installation" checkbox.
