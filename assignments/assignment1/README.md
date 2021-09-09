@@ -56,11 +56,16 @@ VirtualBox is a VM provider (hypervisor).
 link for your computer here: https://www.virtualbox.org/wiki/Downloads. The
 links are under the heading "VirtualBox 6.x.x platform packages."
 
+**For macOS Big Sur:** After installation, you need to go to `System Preferences  
+> Security & Privacy` and allow system software updates from Oracle. Then, restart 
+your mac
+
 **Windows only:** Use all the default installation settings, but you can
 uncheck the "Start Oracle VirtualBox 6.x.x after installation" checkbox.
 
 **Linux:** Run the command `sudo apt-get install virtualbox`. If `virtualbox` is 
-not already added to your package repository, please follow the instructions 
+not already added to your package repository (if apt-get prompts "virtualbox has 
+no installation candidate"), please follow the instructions 
 here: https://www.virtualbox.org/wiki/Linux_Downloads
 
 **Note:** This will also install the VirtualBox application on your computer,
