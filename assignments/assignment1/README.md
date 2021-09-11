@@ -127,7 +127,8 @@ download the course files from GitHub.
 From the `assignments` directory you just entered, run the command  `vagrant
 up` to start the VM and provision it according to the Vagrantfile. You will
 likely have to wait several minutes. You may see warnings/errors in red, such
-as "default: stdin: is not a tty", but you shouldn't have worry about them.
+as "default: dpkg-preconfigure: unable to re-open stdin: No such file or 
+directory", but you shouldn't worry about them.
 
 **Note 1**: The following commands will allow you to stop the VM at any point
 (such as when you are done working on an assignment for the day):

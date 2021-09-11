@@ -14,8 +14,9 @@ Vagrant.configure(2) do |config|
   ## Configure hostname and port forwarding
   config.vm.hostname = "cos461"
   config.ssh.forward_x11 = true
+  # For jupyter notebook server
   config.vm.network "forwarded_port", guest: 8888, host: 8888
-  # Assignment 6
+  # For HTTP proxy
   config.vm.network "forwarded_port", guest: 12000, host: 12000
 
   vagrant_root = File.dirname(__FILE__)
@@ -32,16 +33,23 @@ Vagrant.configure(2) do |config|
      sudo apt-get update
      sudo apt-get -y upgrade
      sudo apt-get install -y emacs
-     sudo apt-get install -y python-dev
-     curl https://bootstrap.pypa.io/get-pip.py > get-pip.py
+     # Build Python 2.7.12 from source
+     sudo apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev
+     wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz
+     tar -xf Python-2.7.12.tgz
+     cd Python-2.7.12
+     ./configure
+     make && sudo make install
+     cd .. && rm -f Python-2.7.12.tgz && rm -rf Python-2.7.12
+     # get pip
+     curl -O https://bootstrap.pypa.io/pip/2.7/get-pip.py
      sudo python get-pip.py
      rm -f get-pip.py
      # Install old version of tornado before installing jupyter
      sudo pip install tornado==4.5.3
      sudo pip install jupyter
-     sudo apt-get install -y gccgo-go
      sudo pip install -U tzupdate
-     echo "export PYTHONPATH=${PYTHONPATH}:/vagrant/course-bin" >> /home/vagrant/.profile
+     sudo apt-get install -y gccgo-go
 
      # Set correct permissions for bash scripts
      find /vagrant -name "*.sh" | xargs chmod -v 744
@@ -51,11 +59,11 @@ Vagrant.configure(2) do |config|
      printf "Using dos2unix to convert files to Unix format if necessary..."
      find /vagrant -name "*" -type f | xargs dos2unix -q
 
-     # Previous Assignment 2 (2019 and before)
-     #sudo apt-get install -y python-tk
-
      # Assignment 2
+     sudo pip install mininet
      sudo pip install nbconvert
+     sudo pip install numpy
+     sudo pip install matplotlib
      sudo apt-get install -y mininet
      sudo apt-get install -y python-numpy
      sudo apt-get install -y python-matplotlib
