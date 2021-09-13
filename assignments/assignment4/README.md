@@ -24,7 +24,7 @@ Reprovision your VM to install necessary packages for this assignment.
 $ vagrant reload --provision
 ```
 
-On the VM, run the command `sudo ~/.local/bin/jupyter-notebook &`. This will
+On the VM, run the command `sudo jupyter notebook &`. This will
 start a new Jupyter notebook server in the background. Even though it is
 running in the background, it will sometimes print informative messages to the
 terminal. You can press Enter each time you get a message to get the shell

@@ -27,23 +27,8 @@ If necessary, you may reprovision your VM to install packages for this assignmen
 $ vagrant reload --provision
 
 ```
-After shelling into your VM, uninstall existing versions of Jupyter and
-matplotlib.
 
-```
-$ sudo pip uninstall matplotlib
-$ sudo pip uninstall jupyter
-```
-
-Re-install Jupyter and matplotlib with the --user flag.
-
-```
-$ pip install --user matplotlib
-$ pip install --user jupyter
-```
-
-
-On the VM, run the command `sudo ~/.local/bin/jupyter-notebook &`. This will
+On the VM, run the command `sudo jupyter notebook &`. This will
 start a new Jupyter notebook server in the background. Even though it is
 running in the background, it will sometimes print informative messages to the
 terminal. You can press Enter each time you get a message to get the shell
