@@ -23,7 +23,7 @@ sudo apt-get install -y gccgo-go
 # Install old version of tornado before installing jupyter
 sudo pip install tornado==4.5.3
 sudo pip install jupyter
-sudo pip install -U tzupdate
+sudo pip install tzupdate==1.5.0
 
 # Set correct permissions for bash scripts
 find . -name "*.sh" | xargs chmod -v 744
@@ -43,11 +43,21 @@ sudo apt-get install -y python-numpy
 sudo apt-get install -y python-matplotlib
 mkdir ~/.jupyter
 cp ./config_files/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
-
-# startup script 
-sudo tzupdate 2> /dev/null
-sudo modprobe tcp_probe port=5001 full=1
+# uncomment below if using ubuntu 16.04
 # sudo apt-get install -y openvswitch-testcontroller
 # sudo ln /usr/bin/ovs-testcontroller /usr/bin/ovs-controller 
 # sudo kill $(pidof ovs-testcontroller)
+
+# startup script 
+sudo bash -c 'cat << EOF > /etc/init/cos461.conf
+description "For cos461 assignments"
+start on startup
+task
+script
+    modprobe tcp_probe port=5001 full=1
+end script
+EOF'
+
+sudo tzupdate 
+sudo modprobe tcp_probe port=5001 full=1
 
