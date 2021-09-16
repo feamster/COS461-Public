@@ -70,3 +70,9 @@ sudo pip install ipaddress
 # Assignment 5
 sudo apt-get install -y apache2-utils
 echo "export GOPATH=$(readlink -f assignment5)" >> ~/.profile
+
+# Start in the assignments dir instead of ~/
+if ! grep -Fxq "cd $(readlink -f .)" ~/.bashrc
+then
+    echo "cd $(readlink -f .)" >> ~/.bashrc
+fi
