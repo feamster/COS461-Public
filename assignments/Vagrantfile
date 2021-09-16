@@ -48,7 +48,7 @@ Vagrant.configure(2) do |config|
      # Install old version of tornado before installing jupyter
      sudo pip install tornado==4.5.3
      sudo pip install jupyter
-     sudo pip install -U tzupdate
+     sudo pip install tzupdate==1.5.0
      sudo apt-get install -y gccgo-go
 
      # Set correct permissions for bash scripts
