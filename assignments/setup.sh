@@ -63,3 +63,10 @@ EOF'
 sudo tzupdate 
 sudo modprobe tcp_probe port=5001 full=1
 
+# Assignment 3
+sudo apt-get install -y whois
+sudo pip install ipaddress
+
+# Assignment 5
+sudo apt-get install -y apache2-utils
+echo "export GOPATH=$(readlink -f assignment5)" >> ~/.profile
