@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# script for setting up the environment on ubuntu 14.04
+
+sudo apt-get update
+sudo apt-get install -y python-dev python-pip
+# Build Python 2.7.12 from source
+sudo apt-get install -y build-essential libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev
+wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz
+tar -xf Python-2.7.12.tgz
+cd Python-2.7.12
+./configure
+make && sudo make install
+cd .. && rm -f Python-2.7.12.tgz && rm -rf Python-2.7.12
+
+# get pip
+curl -O https://bootstrap.pypa.io/pip/2.7/get-pip.py
+sudo python get-pip.py
+rm -f get-pip.py
+
+# install go
+sudo apt-get install -y gccgo-go
+# Install old version of tornado before installing jupyter
+sudo pip install tornado==4.5.3
+sudo pip install jupyter
+sudo pip install -U tzupdate
+
+# Set correct permissions for bash scripts
+find . -name "*.sh" | xargs chmod -v 744
+
+# If the repository was pulled from Windows, convert line breaks to Unix-style
+sudo apt-get install -y dos2unix
+printf "Using dos2unix to convert files to Unix format if necessary..."
+find . -name "*" -type f | xargs dos2unix -q
+
+# Assignment 2
+sudo pip install mininet
+sudo pip install nbconvert
+sudo pip install numpy
+sudo pip install matplotlib
+sudo apt-get install -y mininet
+sudo apt-get install -y python-numpy
+sudo apt-get install -y python-matplotlib
+mkdir ~/.jupyter
+cp ./config_files/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
+
+# startup script 
+sudo tzupdate 2> /dev/null
+sudo modprobe tcp_probe port=5001 full=1
+# sudo apt-get install -y openvswitch-testcontroller
+# sudo ln /usr/bin/ovs-testcontroller /usr/bin/ovs-controller 
+# sudo kill $(pidof ovs-testcontroller)
+
