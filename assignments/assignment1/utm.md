@@ -33,7 +33,9 @@ window displaying VM startup information, and the startup is complete when it
 prompts for login. While you can log into the VM using the UTM window, it is 
 highly recommended to use a separate terminal window and ssh into the VM. To 
 do so, open up a terminal on your Mac and type the command 
-`ssh -p2222 ubuntu@localhost` and then enter the password `ubuntu` to login.
+`ssh -p2222 ubuntu@localhost` and then enter the password `ubuntu` to login. 
+In the meantime, leave the UTM window in the background, closing it will shut 
+down your VM.
 
 To power off your VM, you can either run `sudo shutdown -h now` inside the VM 
 or click on the poweroff button located at the top of the UTM window. To power 
