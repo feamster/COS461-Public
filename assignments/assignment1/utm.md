@@ -49,8 +49,8 @@ Mac has more than 2 cores and 4GB RAM, you can go to
 under Advanced Settings. You can do so only when your VM is powered off. 
 Consuming half of your Mac's cores and RAM is recommended)
 
-(tip#2: Sometimes your mouse might be trapped into the UTM window, press 
-`control+option` to release it)
+(tip#2: Sometimes your mouse might be trapped into the UTM window (i.e., cannot 
+find the mouse on the screen), press `control+option` to release it)
 
 ### Step 3: Clone course Git repository
 
