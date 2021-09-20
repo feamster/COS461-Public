@@ -50,28 +50,31 @@ under Advanced Settings. You can do so only when your VM is powered off.
 Consuming half of your Mac's cores and RAM is recommended)
 
 (tip#2: Sometimes your mouse might be trapped into the UTM window, press 
-`option+command` to release it)
+`control+option` to release it)
 
 ### Step 3: Clone course Git repository
 
-ssh into the VM can run `git clone https://github.com/PrincetonUniversity/COS461-Public` 
+ssh into the VM and run `git clone https://github.com/PrincetonUniversity/COS461-Public` 
 to download the course files from GitHub.
 
-`cd COS461-Public/assignments` to enter the course assignment directory.
+Then `cd COS461-Public/assignments` to enter the course assignment directory.
 
 ### Step 4: Setup programming environment
 
-(Also in the VM) Now run `./setup.sh` to setup the programming environment necessary for the 
-assignments. This process could take up to 30 minutes to complete, depending 
-on your VM hardware configuration. 
+(Also in the VM) Now run `./setup.sh` to setup the programming environment 
+necessary for the assignments. This process could take up to 30 minutes to 
+complete, depending on your VM hardware configuration. 
 
 ### Step 5: Go back to the main README and follow Part B
 
 ### Notes:
 
-We are unable to find a seamless directory sharing solution for UTM. Unlike 
-VirutalBox+Vagrant where the assignment directory is shared between the VM and 
-the host, in UTM, you will need to manually sync up your assignment files. 
+You can write the code either on your Mac or inside the VM, whichever way you 
+feel most comfortable with, but the testing of the code must happen inside 
+the VM. However, we are unable to find a seamless directory 
+sharing solution for UTM. Unlike VirutalBox+Vagrant where the assignment 
+directory is shared between the VM and the host, in UTM, you will need to 
+manually sync up your assignment files. 
 
 You can use `scp` to transmit files between your VM and Mac. For example, you 
 edited the `server-c.c` file on your Mac and you want to test it inside the VM, 
