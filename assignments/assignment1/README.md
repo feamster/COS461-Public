@@ -25,6 +25,8 @@ Let's get started!
 
 ## Part A: Set Up Virtual Machine
 
+**Apple Silicon Mac users: please go to [here](https://github.com/PrincetonUniversity/COS461-Public/tree/master/assignments/assignment1/utm.md) for this part**
+
 The first part of this assignment is to set up the virtual machine (VM) you
 will use for the rest of the course. This will make it easy to install all
 dependencies for the programming assignments, saving you the tedium of

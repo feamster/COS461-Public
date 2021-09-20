@@ -45,6 +45,9 @@ sudo apt-get install -y python-numpy
 sudo apt-get install -y python-matplotlib
 mkdir ~/.jupyter
 cp ./config_files/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
+jupyter_path=$(readlink -f .)
+jupyter_path=${jupyter_path//\//\\\/}
+sed -i "s/\/vagrant/${jupyter_path}/g" ~/.jupyter/jupyter_notebook_config.py
 # uncomment below if using ubuntu 16.04
 # sudo apt-get install -y openvswitch-testcontroller
 # sudo ln /usr/bin/ovs-testcontroller /usr/bin/ovs-controller 
