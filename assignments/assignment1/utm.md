@@ -61,7 +61,7 @@ to download the course files from GitHub.
 
 ### Step 4: Setup programming environment
 
-Now run `./setup.sh` to setup the programming environment necessary for the 
+(Also in the VM) Now run `./setup.sh` to setup the programming environment necessary for the 
 assignments. This process could take up to 30 minutes to complete, depending 
 on your VM hardware configuration. 
 
