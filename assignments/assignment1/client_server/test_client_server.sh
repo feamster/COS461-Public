@@ -9,13 +9,16 @@
 
 # Check correct number of arguments
 if [[ $# -ne 2 ]]; then
-  printf "USAGE: $0 [python|python2|go] [server port]\n"
+  printf "USAGE: $0 [python2|python3|go] [server port]\n"
   exit
 fi
 
-#Handle python 2
+# take explicit lang arg
 if [[ "$1" == "python2" ]]; then
     PYTHON_CALL="python2"
+    LANGUAGE="python"
+elif [[ "$1" == "python3" ]]; then
+    PYTHON_CALL="python3"
     LANGUAGE="python"
 else
     PYTHON_CALL="python3"
