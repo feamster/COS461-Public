@@ -26,7 +26,6 @@ is updated when git pulling, you will need to reprovision your VM to install
 packages for this assignment, as below:
 ```
 $ vagrant reload --provision
-
 ```
 
 ### (For Apple Silicon users)
