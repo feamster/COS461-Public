@@ -1,12 +1,14 @@
 # Assignment 2: TCP Congestion Control and Bufferbloat
 
-### Due <>
+### Due Friday October 8 at 11:59 pm EST
 
 This is not a group assignment. You are not allowed to copy or look at code
 from other students. However, you are welcome to discuss the assignments with
 other students without sharing code.
 
 ## Getting Started
+
+### For VirtualBox users
 
 On your host machine (not the VM), go to the course assignments directory:
 
@@ -18,17 +20,30 @@ $ cd COS461-Public/assignments
 $ git pull
 ```
 
-There has been a problem with "vagrant reload --provision" for the latest vagrant version.
-Please remove existing vagrant and reinstall Vagrant with the correct version (vagrant_2.2.7) from https://releases.hashicorp.com/vagrant/
-
-It is not necessary to reprovision your VM, but with the vagrant_2.2.7, it will no longer cause an error on "remote connection disconnect".  
-If necessary, you may reprovision your VM to install packages for this assignment.
+It is not necessary to reprovision your VM. You can just `vagrant ssh` into 
+your VM if it's already provisioned. However, if you see that the Vagrantfile 
+is updated when git pulling, you will need to reprovision your VM to install 
+packages for this assignment, as below:
 ```
 $ vagrant reload --provision
 
 ```
 
-On the VM, run the command `sudo jupyter notebook &`. This will
+### (For Apple Silicon users)
+
+`ssh` into your UTM VM, pull the latest update from Github:
+```
+$ git pull
+```
+
+If you see that the `setup.sh` file is updated, you can either apply the diff 
+manually or delete your current VM (make sure your progress is backed up on 
+your host machine) and follow the setup process in assignment1 README to 
+reflect the changes. If not updated, nothing needs to be done for your VM.
+
+## Starting up the Jupyter Notebook Server
+
+In the VM, run the command `sudo jupyter notebook &`. This will
 start a new Jupyter notebook server in the background. Even though it is
 running in the background, it will sometimes print informative messages to the
 terminal. You can press Enter each time you get a message to get the shell
@@ -36,7 +51,7 @@ prompt back. To shut down the notebook, run `fg` then press Control-C twice
 (once to get the confirmation message, another time to skip confirmation).
 
 While the notebook is running, on your host machine, open up your browser and
-type `localhost:8888` in the address bar. This should open to the Jupyter
+type `localhost:8888` in the address bar. This should take you to the Jupyter
 notebook file selection window.  Juypter notebook is actually running on port
 8888 on your vagrant VM, but you can access it through your host machine
 browser because the port is being forwarded between the VM and the host
@@ -70,7 +85,8 @@ tutorials).
 
 ## Submission
 
-Submit your completed `Assignment2_Notebook.ipynb` file on TigerFile here: <>
+Submit your completed `Assignment2_Notebook.ipynb` file on TigerFile here: 
+[Programming Assignment 2](https://tigerfile.cs.princeton.edu/COS461_F2021/Programming_Assignment_2).
 
 Remember to put your name and netid in the marked location at the top of the
 file.
