@@ -1,6 +1,6 @@
 # Assignment 5: HTTP Proxy
 
-### Due <>
+### Due Wednesday November 17 at 11:59 pm EST
 
 In this assignment, you will implement a web proxy that passes requests and
 data between multiple web clients and web servers. The proxy should support
@@ -9,7 +9,8 @@ know one of the most popular application protocols on the Internet -- the
 Hypertext Transfer Protocol (HTTP). When you're done with the assignment, you
 should be able to configure Firefox to use your  proxy implementation.
 
-You may work in groups of 1-2. Please specify your teammates' name and NETID at the beginning of http_proxy.go and http_proxy_DNS.go.
+You may work in groups of 1-2. Please specify your teammates' name and NETID at 
+the beginning of http_proxy.go and http_proxy_DNS.go.
 
 ## Introduction: The Hypertext Transfer Protocol
 
@@ -136,26 +137,43 @@ Why use a proxy? There are a few possible reasons:
 ## Part A: HTTP Proxy
 
 ### Getting Started
-* On your host machine (laptop), go to the course directory.
 
-```bash
+#### For VirtualBox users
+
+On your host machine (not the VM), go to the course assignments directory:
+
+```
 $ cd COS461-Public/assignments
 ```
-
-* Now, pull the latest update from Github.
-```bash
+ Pull the latest update from Github.
+```
 $ git pull
 ```
 
-* Reprovision your VM as follows:
-```bash
+It is not necessary to reprovision your VM. You can just `vagrant ssh` into 
+your VM if it's already provisioned. However, if you see that the Vagrantfile 
+is updated when git pulling, you will need to reprovision your VM to install 
+packages for this assignment, as below:
+```
 $ vagrant reload --provision
 ```
 
-* SSH to the VM:
-```bash
+Then, ssh into the VM.
+```
 $ vagrant ssh
 ```
+
+#### (For Apple Silicon users)
+
+`ssh` into your UTM VM, pull the latest update from Github:
+```
+$ git pull
+```
+
+If you see that the `setup.sh` file is updated, you can either apply the diff 
+manually or delete your current VM (make sure your progress is backed up on 
+your host machine) and follow the setup process in assignment1 README to 
+reflect the changes. If not updated, nothing needs to be done for your VM.
 
 ### Task Specification
 
@@ -402,9 +420,9 @@ surprised if it is not noticeable.
 ## Submission & Grading
 
 You should submit your `http_proxy.go` and `http_proxy_DNS.go` files to the CS
-TigerFile here: <>
+TigerFile here: [Programming Assignment 5](https://tigerfile.cs.princeton.edu/COS461_F2021/Programming_Assignment_5)
 
-**Put your name and netid in comments at the top of both submitted files.**
+**Put your and your teammate's names and netids in comments at the top of both submitted files.**
 
 We will test your proxies by running the `test_proxy.py` and
 `test_proxy_conc.py` scripts and by performing a few additional tests with
